@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ha">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Our Products | Softina Natural Ventures</title>
+
+    <meta name="description" content="Explore natural products from Softina Natural Ventures.">
+
+    <link rel="stylesheet" href="css/products.css">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+<header class="products-header">
+    <a href="index.html" class="brand">
+        <i class="fa-solid fa-leaf"></i>
+        SOFTINA NATURAL VENTURES
+    </a>
+
+    <a href="index.html" class="back-home">
+        <i class="fa-solid fa-house"></i> Home
+    </a>
+    <a href="cart.html" class="cart-link">
+    <i class="fa-solid fa-cart-shopping"></i>
+    Cart
+    <span id="cartCount">0</span>
+</a>
+</header>
+
+<section class="products-hero">
+    <h1>Our Natural Products</h1>
+    <p>
+        Explore our range of natural products and discover
+        what Softina Natural Ventures offers.
+    </p>
+</section>
+
+<section class="catalog">
+
+    <div class="catalog-heading">
+        <h2>Products Catalog</h2>
+        <p>Browse our available products.</p>
+    </div>
+
+    <div class="catalog-controls">
+
+        <input
+            type="search"
+            id="productSearch"
+            placeholder="Search products..."
+        >
+
+        <select id="categoryFilter">
+            <option value="all">All Categories</option>
+            <option value="supplements">Supplements</option>
+            <option value="herbal-tea">Herbal Tea</option>
+            <option value="cosmetics">Natural Cosmetics</option>
+            <option value="oils">Natural Oils</option>
+            <option value="spices">Spices & Seasoning</option>
+        </select>
+
+    </div>
+
+    <div class="products-grid" id="productsGrid"></div>
+
+    <div id="noProducts" class="no-products" hidden>
+        No products found.
+    </div>
+
+</section>
+
+<footer>
+    <p>
+        &copy; <span id="year"></span>
+        Softina Natural Ventures. All Rights Reserved.
+    </p>
+</footer>
+
+<script src="js/products-data.js"></script>
+<script src="js/products.js"></script>
+
+</body>
+</html>

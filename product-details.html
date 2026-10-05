@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ha">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Product Details | Softina Natural Ventures</title>
+
+    <link rel="stylesheet" href="css/products.css">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+
+        .details-page {
+            width: 90%;
+            max-width: 1100px;
+            margin: 60px auto;
+        }
+
+        .details-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 35px rgba(0,0,0,.08);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .details-image {
+            min-height: 500px;
+            background: #edf3ee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .details-image img {
+            width: 100%;
+            height: 100%;
+            min-height: 500px;
+            object-fit: cover;
+        }
+
+        .details-info {
+            padding: 45px;
+        }
+
+        .details-category {
+            display: inline-block;
+            background: #e5f4eb;
+            color: #087443;
+            padding: 6px 13px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .details-info h1 {
+            color: #10251b;
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .details-description {
+            color: #5b685f;
+            margin-bottom: 20px;
+        }
+
+        .details-price {
+            color: #087443;
+            font-size: 25px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .quantity-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .quantity-box button {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: #087443;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .quantity-box input {
+            width: 70px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            font-size: 17px;
+        }
+
+        .order-now {
+            display: block;
+            width: 100%;
+            border: none;
+            background: #25d366;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .back-products {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: #087443;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .notice {
+            margin-top: 25px;
+            padding: 15px;
+            background: #f5faf6;
+            border-left: 4px solid #087443;
+            font-size: 13px;
+        }
+
+        @media(max-width: 750px) {
+
+            .details-card {
+                grid-template-columns: 1fr;
+            }
+
+            .details-image,
+            .details-image img {
+                min-height: 350px;
+            }
+
+            .details-info {
+                padding: 28px;
+            }
+
+            .details-info h1 {
+                font-size: 30px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header class="products-header">
+
+    <a href="index.html" class="brand">
+        <i class="fa-solid fa-leaf"></i>
+        SOFTINA NATURAL VENTURES
+    </a>
+
+    <a href="products.html" class="back-home">
+        <i class="fa-solid fa-store"></i>
+        Products
+    </a>
+
+</header>
+
+
+<main class="details-page">
+
+    <a href="products.html" class="back-products">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Products
+    </a>
+
+
+    <div id="productDetails"></div>
+
+</main>
+
+
+<footer>
+
+    <p>
+        &copy; <span id="year"></span>
+        Softina Natural Ventures. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<script src="js/product-details.js"></script>
+
+</body>
+</html>

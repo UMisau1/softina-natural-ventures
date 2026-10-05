@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="ha">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Softina Natural Ventures | Kwararrun Masana Maganin Gargajiya</title>
+
+  <meta name="description"
+        content="Softina Natural Ventures - Bincike, consultation, natural cosmetics, supplements, herbal medicine, diet & lifestyle, natural oils, spices da Softina Academy of Herbal Medicine.">
+
+  <meta name="keywords"
+        content="Softina Natural Ventures, Likitan Softina, Herbal Medicine, Natural Products, Supplements, Natural Cosmetics, Nigeria">
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --primary: #087443;
+      --primary-dark: #04532f;
+      --secondary: #d8a927;
+      --light: #f6fbf7;
+      --dark: #10251b;
+      --white: #fff;
+      --text: #425047;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.7;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      background: var(--dark);
+      color: white;
+      padding: 9px 0;
+      font-size: 14px;
+    }
+
+    .topbar-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .topbar i {
+      color: var(--secondary);
+      margin-right: 5px;
+    }
+
+    /* NAVBAR */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: white;
+      box-shadow: 0 3px 18px rgba(0,0,0,.08);
+    }
+
+    nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      color: var(--primary);
+      font-size: 19px;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+    }
+
+    .logo span {
+      display: block;
+      color: var(--secondary);
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--dark);
+      transition: .3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-btn {
+      background: var(--primary);
+      color: white !important;
+      padding: 10px 17px;
+      border-radius: 30px;
+    }
+
+    .menu-btn {
+      display: none;
+      font-size: 25px;
+      cursor: pointer;
+      color: var(--primary);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 650px;
+      display: flex;
+      align-items: center;
+      background:
+        linear-gradient(90deg, rgba(4,45,27,.96), rgba(4,83,47,.82)),
+        url("images/hero.jpg") center/cover no-repeat;
+      color: white;
+    }
+
+    .hero-content {
+      max-width: 760px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 7px 16px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 30px;
+      margin-bottom: 20px;
+      color: #ffe49a;
+      font-weight: bold;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 6vw, 68px);
+      line-height: 1.08;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: #f2cf58;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 700px;
+      color: #edf8f1;
+      margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 22px;
+      border-radius: 30px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .btn-primary {
+      background: var(--secondary);
+      color: var(--dark);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-outline {
+      border: 1px solid white;
+      color: white;
+    }
+
+    .btn-outline:hover {
+      background: white;
+      color: var(--primary);
+    }
+
+    /* STATS */
+    .stats {
+      background: var(--primary);
+      color: white;
+      padding: 35px 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      text-align: center;
+    }
+
+    .stat h2 {
+      font-size: 35px;
+      color: #f3d25b;
+    }
+
+    .stat p {
+      font-size: 14px;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 90px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 50px;
+    }
+
+    .section-header .mini-title {
+      color: var(--primary);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 13px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(30px, 4vw, 44px);
+      color: var(--dark);
+      margin: 8px 0 15px;
+    }
+
+    .section-header p {
+      color: #66736b;
+    }
+
+    /* ABOUT */
+    .about {
+      background: var(--light);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .doctor-card {
+      background: white;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0,0,0,.1);
+    }
+
+    .doctor-image {
+      height: 430px;
+      background:
+        linear-gradient(rgba(8,116,67,.15),rgba(8,116,67,.15)),
+        url("images/likitan-softina.jpg") center/cover no-repeat;
+    }
+
+    .doctor-info {
+      padding: 25px;
+    }
+
+    .doctor-info h3 {
+      color: var(--dark);
+      font-size: 25px;
+    }
+
+    .doctor-info p {
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .about-text h3 {
+      font-size: 30px;
+      color: var(--dark);
+      margin-bottom: 15px;
+    }
+
+    .about-text p {
+      margin-bottom: 15px;
+    }
+
+    .qualification {
+      margin-top: 25px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .qualification div {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .qualification i {
+      color: var(--primary);
+      margin-top: 5px;
+    }
+
+    /* SERVICES */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .service-card {
+      padding: 30px 24px;
+      border-radius: 18px;
+      border: 1px solid #e4ebe6;
+      background: white;
+      transition: .3s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 15px 35px rgba(0,0,0,.09);
+      border-color: var(--primary);
+    }
+
+    .service-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 15px;
+      background: #e7f5ed;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 18px;
+    }
+
+    .service-card h3 {
+      color: var(--dark);
+      margin-bottom: 9px;
+    }
+
+    /* PRODUCTS */
+    .products {
+      background: var(--light);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,.07);
+    }
+
+    .product-image {
+      height: 220px;
+      background: #edf4ef center/cover no-repeat;
+    }
+
+    .product-card:nth-child(1) .product-image {
+      background-image: url("images/product-1.jpg");
+    }
+
+    .product-card:nth-child(2) .product-image {
+      background-image: url("images/product-2.jpg");
+    }
+
+    .product-card:nth-child(3) .product-image {
+      background-image: url("images/product-3.jpg");
+    }
+
+    .product-card:nth-child(4) .product-image {
+      background-image: url("images/product-4.jpg");
+    }
+
+    .product-info {
+      padding: 20px;
+    }
+
+    .product-info h3 {
+      color: var(--dark);
+      margin-bottom: 7px;
+    }
+
+    .product-info p {
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .order-btn {
+      display: block;
+      text-align: center;
+      background: var(--primary);
+      color: white;
+      padding: 10px;
+      border-radius: 25px;
+      font-weight: bold;
+    }
+
+    /* WHY US */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .why-card {
+      padding: 35px 25px;
+      text-align: center;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.06);
+    }
+
+    .why-card i {
+      font-size: 38px;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .why-card h3 {
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+
+    /* ACADEMY */
+    .academy {
+      background:
+        linear-gradient(90deg, rgba(4,65,37,.96), rgba(4,83,47,.88)),
+        url("images/academy.jpg") center/cover;
+      color: white;
+    }
+
+    .academy-content {
+      max-width: 750px;
+    }
+
+    .academy h2 {
+      font-size: 43px;
+      margin-bottom: 15px;
+    }
+
+    .academy p {
+      margin-bottom: 25px;
+      color: #e8f5ed;
+    }
+
+    /* SOCIAL */
+    .social {
+      background: var(--light);
+      text-align: center;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      color: var(--primary);
+      font-size: 21px;
+      box-shadow: 0 7px 20px rgba(0,0,0,.08);
+      transition: .3s;
+    }
+
+    .social-link:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-4px);
+    }
+
+    /* CONTACT */
+    .contact {
+      background: var(--dark);
+      color: white;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 45px;
+    }
+
+    .contact h2 {
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+
+    .contact p {
+      color: #cbd9d0;
+    }
+
+    .contact-items {
+      margin-top: 25px;
+      display: grid;
+      gap: 15px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .contact-item i {
+      width: 45px;
+      height: 45px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .contact-box {
+      background: white;
+      color: var(--dark);
+      padding: 30px;
+      border-radius: 20px;
+    }
+
+    .contact-box h3 {
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+
+    .phone {
+      display: block;
+      padding: 13px;
+      background: #eef8f2;
+      margin: 10px 0;
+      border-radius: 10px;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #071a11;
+      color: #b9c8bf;
+      text-align: center;
+      padding: 25px 0;
+      font-size: 14px;
+    }
+
+    footer strong {
+      color: #f0cf57;
+    }
+
+    /* WHATSAPP */
+    .whatsapp {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #25d366;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      z-index: 1000;
+      box-shadow: 0 8px 25px rgba(0,0,0,.25);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 950px) {
+
+      .nav-links {
+        position: absolute;
+        top: 76px;
+        left: 0;
+        width: 100%;
+        background: white;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,.1);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 10px;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .services-grid,
+      .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .topbar {
+        text-align: center;
+      }
+
+      .topbar-content {
+        justify-content: center;
+      }
+
+      .hero {
+        min-height: 580px;
+      }
+
+      .hero h1 {
+        font-size: 39px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      section {
+        padding: 65px 0;
+      }
+
+      .stats-grid,
+      .services-grid,
+      .products-grid,
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .doctor-image {
+        height: 350px;
+      }
+
+      .academy h2 {
+        font-size: 32px;
+      }
+
+      .contact h2 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="container topbar-content">
+    <div>
+      <i class="fa-solid fa-phone"></i>
+      Kasuwanci: 07036270880
+    </div>
+
+    <div>
+      <i class="fa-solid fa-location-dot"></i>
+      Softina Natural Ventures
+    </div>
+
+    <div>
+      <i class="fa-solid fa-shield-heart"></i>
+      Amana • Gaskiya • Inganci
+    </div>
+  </div>
+</div>
+
+
+<!-- NAVIGATION -->
+<header>
+  <nav class="container">
+
+    <a href="#home" class="logo">
+      <div class="logo-icon">
+        <i class="fa-solid fa-leaf"></i>
+      </div>
+
+      <div>
+        SOFTINA
+        <span>NATURAL VENTURES</span>
+      </div>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Gida</a></li>
+      <li><a href="#about">Game da Mu</a></li>
+      <li><a href="#services">Ayyuka</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#academy">Academy</a></li>
+      <li><a href="#contact" class="nav-btn">Tuntube Mu</a></li>
+    </ul>
+
+    <div class="menu-btn" id="menuBtn">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+
+  </nav>
+</header>
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+
+  <div class="container">
+
+    <div class="hero-content">
+
+      <div class="badge">
+        <i class="fa-solid fa-leaf"></i>
+        SOFTINA NATURAL VENTURES
+      </div>
+
+      <h1>
+        Lafiya ta hanyar
+        <span>Ilimi da Nature</span>
+      </h1>
+
+      <p>
+        Muna samar da kayayyaki da ayyuka na Natural & Herbal Medicine,
+        Natural Cosmetics, Supplements, Diet & Lifestyle da sauran
+        hanyoyin kula da lafiya karkashin jagorancin kwararru.
+      </p>
+
+      <div class="hero-buttons">
+
+        <a href="#products" class="btn btn-primary">
+          <i class="fa-solid fa-basket-shopping"></i>
+          Duba Products
+        </a>
+
+        <a href="#contact" class="btn btn-outline">
+          <i class="fa-solid fa-phone"></i>
+          Tuntube Mu
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- STATS -->
+<section class="stats">
+
+  <div class="container stats-grid">
+
+    <div class="stat">
+      <h2>500+</h2>
+      <p>Shirye-shiryen Magunguna</p>
+    </div>
+
+    <div class="stat">
+      <h2>10</h2>
+      <p>Manyan Sassan Ayyuka</p>
+    </div>
+
+    <div class="stat">
+      <h2>30K+</h2>
+      <p>Mabiyan TikTok</p>
+    </div>
+
+    <div class="stat">
+      <h2>100%</h2>
+      <p>Mayar da Hankali kan Inganci</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ABOUT -->
+<section class="about" id="about">
+
+  <div class="container">
+
+    <div class="section-header">
+      <div class="mini-title">Game da Mu</div>
+      <h2>Waye Likitan Softina?</h2>
+      <p>
+        Mutumin da ke bayan hangen nesa na Softina Natural Ventures.
+      </p>
+    </div>
+
+    <div class="about-grid">
+
+      <div class="doctor-card">
+
+        <div class="doctor-image"></div>
+
+        <div class="doctor-info">
+
+          <h3>Muhammad Sidi Ibrahim</h3>
+
+          <p>
+            Wanda aka fi sani da “Likitan Softina”
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="about-text">
+
+        <h3>
+          Ilimi, Bincike da Kula da Lafiya
+        </h3>
+
+        <p>
+          Muhammad Sidi Ibrahim, wanda aka fi sani da Likitan Softina,
+          masani ne a fannin Herbal Medicine da Pharmacy. Hangen nesansa
+          shi ne hada ilimi, bincike da kwarewar masana domin samar da
+          kayayyakin lafiya masu inganci.
+        </p>
+
+        <p>
+          Softina Natural Ventures ta hada masana daga fannoni daban-daban,
+          ciki har da Herbalists da Nutritionists, domin samar da kayayyaki
+          da ayyuka da suka dace da bukatun jama'a.
+        </p>
+
+        <div class="qualification">
+
+          <div>
+            <i class="fa-solid fa-circle-check"></i>
+            <span><strong>BSc Herbal Medicine</strong> – First Class Upper</span>
+          </div>
+
+          <div>
+            <i class="fa-solid fa-circle-check"></i>
+            <span><strong>Doctor of Pharmacy (Pharm-D)</strong></span>
+          </div>
+
+          <div>
+            <i class="fa-solid fa-circle-check"></i>
+            <span>
+              Bincike da hada kwararru daga fannoni daban-daban.
+            </span>
+          </div>
+
+          <div>
+            <i class="fa-solid fa-circle-check"></i>
+            <span>
+              Mayar da hankali kan inganci, gaskiya da amana.
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SERVICES -->
+<section id="services">
+
+  <div class="container">
+
+    <div class="section-header">
+
+      <div class="mini-title">Abin da Muke Yi</div>
+
+      <h2>Sassan Ayyukanmu</h2>
+
+      <p>
+        Softina Natural Ventures tana aiki ta hanyar sassa daban-daban
+        domin biyan bukatun customers da patients.
+      </p>
+
+    </div>
+
+
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fa-solid fa-magnifying-glass-chart"></i>
+        </div>
+        <h3>Bincike & Shawarwari</h3>
+        <p>
+          Bincike da shawarwari kan abubuwan da suka shafi lafiya
+          da natural products.
+        </p>
+      </div>
+
+
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fa-solid fa-user-doctor"></i>
+        </div>
+        <h3>Consultation</h3>
+        <p>
+          Online consultation da physical consultation karkashin
+          tsarin kamfanin.
+        </p>
+      </div>
+
+
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fa-solid fa-spa"></i>
+        </div>
+        <h3>Natural Cosmetics</h3>
+        <p>
+          Kayan kwalliya na natural da aka tsara domin kula da fata.
+        </p>
+      </div>
+
+
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fa-solid fa-pills"></i>
+        </div>
+        <h3>Natural Supplements</h3>
+        <p>
+          Natural supplements domin taimakawa wajen kula da lafiyar jiki.
+        </p>
+      </div>
+
+
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fa-solid fa-mug-hot"></i>
+        </div>
+        <h3>Herbal Tea</h3>
+        <p>
+          Magungunan ganyen shayi da ake shirya su cikin Tea Bags
+          domin saukin amfani.
+        </p>
+      </div>
+
+
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fa-solid fa-utensils"></i>
+        </div>
+        <h3>Diet & Lifestyle</h3>
+        <p>
+          Tsarin abinci da salon rayuwa domin taimakawa wajen
+          inganta lafiyar mutum.
+        </p>
+      </div>
+
+
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fa-solid fa-flask"></i>
+        </div>
+        <h3>Homeopathy</h3>
+        <p>
+          Ayyuka da kayayyakin da suka shafi tsarin Homeopathic
+          medicine.
+        </p>
+      </div>
+
+
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <h3>Softina Academy</h3>
+        <p>
+          Cibiyar koyar da ilimi da dabarun Herbal Medicine.
+        </p>
+      </div>
+
+
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fa-solid fa-droplet"></i>
+        </div>
+        <h3>Natural Oils</h3>
+        <p>
+          Ingantattun natural oils da aka samar daga kayan halitta.
+        </p>
+      </div>
+
+
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fa-solid fa-pepper-hot"></i>
+        </div>
+        <h3>Spices & Seasoning</h3>
+        <p>
+          Kayan kamshi da kayan girki domin masu neman natural
+          seasoning.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+
+  <div class="container">
+
+    <div class="section-header">
+
+      <div class="mini-title">Store</div>
+
+      <h2>Kayayyakin Softina</h2>
+
+      <p>
+        Za mu kawo muku cikakken catalog na products tare da bayanai,
+        farashi da tsarin oda.
+      </p>
+
+    </div>
+
+
+    <div class="products-grid">
+
+      <div class="product-card">
+
+        <div class="product-image"></div>
+
+        <div class="product-info">
+
+          <h3>Natural Supplements</h3>
+
+          <p>
+            Natural supplements daga Softina Natural Ventures.
+          </p>
+
+          <a href="https://wa.me/2347036270880" class="order-btn">
+            Yi Oda
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="product-card">
+
+        <div class="product-image"></div>
+
+        <div class="product-info">
+
+          <h3>Herbal Tea</h3>
+
+          <p>
+            Herbal tea a cikin tsarin Tea Bag domin saukin amfani.
+          </p>
+
+          <a href="https://wa.me/2347036270880" class="order-btn">
+            Yi Oda
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="product-card">
+
+        <div class="product-image"></div>
+
+        <div class="product-info">
+
+          <h3>Natural Oils</h3>
+
+          <p>
+            Ingantattun mai extracted daga kayan halitta.
+          </p>
+
+          <a href="https://wa.me/2347036270880" class="order-btn">
+            Yi Oda
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="product-card">
+
+        <div class="product-image"></div>
+
+        <div class="product-info">
+
+          <h3>Natural Cosmetics</h3>
+
+          <p>
+            Kayan kwalliya na natural domin kula da fata.
+          </p>
+
+          <a href="https://wa.me/2347036270880" class="order-btn">
+            Yi Oda
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- WHY US -->
+<section>
+
+  <div class="container">
+
+    <div class="section-header">
+
+      <div class="mini-title">Me Ya Sa Softina?</div>
+
+      <h2>Amana da Gaskiya</h2>
+
+      <p>
+        Manufofinmu sun ginu ne akan ilimi, bincike, inganci da amana.
+      </p>
+
+    </div>
+
+
+    <div class="why-grid">
+
+      <div class="why-card">
+
+        <i class="fa-solid fa-user-shield"></i>
+
+        <h3>Amana</h3>
+
+        <p>
+          Mun dauki amana da gaskiya a matsayin ginshikin harkokinmu.
+        </p>
+
+      </div>
+
+
+      <div class="why-card">
+
+        <i class="fa-solid fa-microscope"></i>
+
+        <h3>Bincike</h3>
+
+        <p>
+          Muna mayar da hankali kan bincike da samar da kayayyaki masu inganci.
+        </p>
+
+      </div>
+
+
+      <div class="why-card">
+
+        <i class="fa-solid fa-people-group"></i>
+
+        <h3>Kwararru</h3>
+
+        <p>
+          Muna hada masana daga fannoni daban-daban domin inganta ayyukanmu.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ACADEMY -->
+<section class="academy" id="academy">
+
+  <div class="container">
+
+    <div class="academy-content">
+
+      <div class="badge">
+        SOFTINA ACADEMY OF HERBAL MEDICINE
+      </div>
+
+      <h2>
+        Koyi Ilimin Herbal Medicine
+      </h2>
+
+      <p>
+        Softina Academy of Herbal Medicine wata cibiya ce da aka tsara
+        domin koyar da ilimi da fahimta game da Herbal Medicine da
+        natural health practices.
+      </p>
+
+      <a href="#contact" class="btn btn-primary">
+        <i class="fa-solid fa-graduation-cap"></i>
+        Nemi Karin Bayani
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SOCIAL MEDIA -->
+<section class="social">
+
+  <div class="container">
+
+    <div class="section-header">
+
+      <div class="mini-title">Kasance Tare da Mu</div>
+
+      <h2>Social Media</h2>
+
+      <p>
+        Ku kasance tare da Softina Natural Ventures domin samun
+        sabbin bayanai da kayayyakinmu.
+      </p>
+
+    </div>
+
+
+    <div class="social-links">
+
+      <a href="#" class="social-link" title="Facebook">
+        <i class="fa-brands fa-facebook-f"></i>
+      </a>
+
+      <a href="#" class="social-link" title="TikTok">
+        <i class="fa-brands fa-tiktok"></i>
+      </a>
+
+      <a href="#" class="social-link" title="Instagram">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+
+      <a href="#" class="social-link" title="X">
+        <i class="fa-brands fa-x-twitter"></i>
+      </a>
+
+      <a href="#" class="social-link" title="YouTube">
+        <i class="fa-brands fa-youtube"></i>
+      </a>
+
+      <a href="#" class="social-link" title="Threads">
+        <i class="fa-brands fa-threads"></i>
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+
+  <div class="container contact-grid">
+
+    <div>
+
+      <div class="mini-title" style="color:#f2cf58;">
+        Tuntube Mu
+      </div>
+
+      <h2>
+        Kuna son yin magana da Softina?
+      </h2>
+
+      <p>
+        Domin oda, consultation, products, partnership ko karin bayani,
+        ku tuntube mu ta lambobin kasuwancinmu.
+      </p>
+
+
+      <div class="contact-items">
+
+        <div class="contact-item">
+
+          <i class="fa-solid fa-phone"></i>
+
+          <div>
+            <strong>Business Line</strong>
+            <br>
+            07036270880
+          </div>
+
+        </div>
+
+
+        <div class="contact-item">
+
+          <i class="fa-solid fa-phone"></i>
+
+          <div>
+            <strong>Faruq</strong>
+            <br>
+            09030406251
+          </div>
+
+        </div>
+
+
+        <div class="contact-item">
+
+          <i class="fa-solid fa-phone"></i>
+
+          <div>
+            <strong>Ma'aikaci</strong>
+            <br>
+            09066629790
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="contact-box">
+
+      <h3>
+        <i class="fa-brands fa-whatsapp"></i>
+        Yi Magana da Mu a WhatsApp
+      </h3>
+
+      <p>
+        Danna lambar da kake son tuntuba:
+      </p>
+
+      <a href="https://wa.me/2347036270880" class="phone">
+        <i class="fa-solid fa-phone"></i>
+        07036270880
+      </a>
+
+      <a href="https://wa.me/2349030406251" class="phone">
+        <i class="fa-solid fa-phone"></i>
+        09030406251
+      </a>
+
+      <a href="https://wa.me/2349066629790" class="phone">
+        <i class="fa-solid fa-phone"></i>
+        09066629790
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+  <div class="container">
+
+    <p>
+      © <span id="year"></span>
+      <strong>Softina Natural Ventures</strong>.
+      All Rights Reserved.
+    </p>
+
+    <p>
+      Kwararrun Masana Maganin Gargajiya da Natural Health Products.
+    </p>
+
+  </div>
+
+</footer>
+
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/2347036270880"
+   class="whatsapp"
+   target="_blank"
+   aria-label="WhatsApp">
+
+  <i class="fa-brands fa-whatsapp"></i>
+
+</a>
+
+
+<script>
+
+  const menuBtn = document.getElementById("menuBtn");
+  const navLinks = document.getElementById("navLinks");
+
+  menuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+
+    const icon = menuBtn.querySelector("i");
+
+    if (navLinks.classList.contains("active")) {
+      icon.classList.remove("fa-bars");
+      icon.classList.add("fa-xmark");
+    } else {
+      icon.classList.remove("fa-xmark");
+      icon.classList.add("fa-bars");
+    }
+  });
+
+
+  document.querySelectorAll(".nav-links a").forEach(link => {
+
+    link.addEventListener("click", () => {
+
+      navLinks.classList.remove("active");
+
+      const icon = menuBtn.querySelector("i");
+
+      icon.classList.remove("fa-xmark");
+      icon.classList.add("fa-bars");
+
+    });
+
+  });
+
+
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+</script>
+
+</body>
+</html>
