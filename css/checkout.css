@@ -1,0 +1,403 @@
+/* ==========================================
+   SOFTINA CHECKOUT
+========================================== */
+
+:root {
+    --green: #087443;
+    --dark: #10251b;
+    --gold: #d8a927;
+    --light: #f5faf6;
+    --white: #ffffff;
+    --border: #dfe8e2;
+    --text: #33443a;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--light);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.checkout-header {
+    min-height: 75px;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+
+.brand {
+    text-decoration: none;
+    color: var(--green);
+    font-weight: 800;
+    letter-spacing: .5px;
+}
+
+
+.brand i {
+    margin-right: 8px;
+}
+
+
+.back-cart {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+
+.back-cart i {
+    margin-right: 6px;
+}
+
+
+/* ==========================================
+   MAIN
+========================================== */
+
+.checkout-container {
+    width: min(1200px, 92%);
+    margin: 50px auto;
+}
+
+
+.checkout-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+
+.checkout-title span {
+    color: var(--gold);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+
+.checkout-title h1 {
+    color: var(--dark);
+    font-size: 38px;
+    margin: 8px 0;
+}
+
+
+.checkout-title p {
+    max-width: 700px;
+    margin: auto;
+    color: #66756c;
+}
+
+
+/* ==========================================
+   LAYOUT
+========================================== */
+
+.checkout-layout {
+    display: grid;
+    grid-template-columns: 1.4fr .8fr;
+    gap: 30px;
+    align-items: start;
+}
+
+
+.customer-form,
+.checkout-summary {
+    background: var(--white);
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 10px 35px rgba(16, 37, 27, .08);
+}
+
+
+.customer-form h2,
+.checkout-summary h2 {
+    color: var(--dark);
+    margin-bottom: 25px;
+    font-size: 22px;
+}
+
+
+.customer-form h2 i,
+.checkout-summary h2 i {
+    color: var(--green);
+    margin-right: 8px;
+}
+
+
+/* ==========================================
+   FORM
+========================================== */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+
+.form-group label {
+    display: block;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 7px;
+    font-size: 14px;
+}
+
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 13px 14px;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    background: #fbfdfb;
+    transition: .2s;
+}
+
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(8, 116, 67, .08);
+}
+
+
+.form-group textarea {
+    resize: vertical;
+}
+
+
+/* ==========================================
+   SUBMIT BUTTON
+========================================== */
+
+.submit-order {
+    width: 100%;
+    border: none;
+    background: var(--green);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s;
+}
+
+
+.submit-order:hover {
+    background: #065b35;
+    transform: translateY(-1px);
+}
+
+
+.submit-order i {
+    margin-right: 8px;
+}
+
+
+/* ==========================================
+   ORDER ITEMS
+========================================== */
+
+.checkout-item {
+    display: flex;
+    gap: 12px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+
+.checkout-item img {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 10px;
+    background: #eef5ef;
+}
+
+
+.checkout-item-info {
+    flex: 1;
+}
+
+
+.checkout-item-info h3 {
+    font-size: 15px;
+    color: var(--dark);
+    margin-bottom: 3px;
+}
+
+
+.checkout-item-info p {
+    font-size: 13px;
+    color: #718077;
+}
+
+
+.checkout-item-info strong {
+    color: var(--green);
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   SUMMARY
+========================================== */
+
+.summary-footer {
+    margin-top: 20px;
+}
+
+
+.summary-footer > p:first-child {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+    font-size: 16px;
+}
+
+
+.summary-footer strong {
+    color: var(--green);
+}
+
+
+.notice {
+    margin-top: 18px;
+    background: #f8f4e5;
+    color: #75662d;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+
+/* ==========================================
+   EMPTY ORDER
+========================================== */
+
+.empty-checkout {
+    text-align: center;
+    padding: 30px 10px;
+}
+
+
+.empty-checkout i {
+    font-size: 40px;
+    color: #bbc8bf;
+    margin-bottom: 12px;
+}
+
+
+.empty-checkout h3 {
+    color: var(--dark);
+}
+
+
+.empty-checkout a {
+    display: inline-block;
+    margin-top: 15px;
+    color: var(--green);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+footer {
+    text-align: center;
+    background: var(--dark);
+    color: #dce7df;
+    padding: 25px 15px;
+    margin-top: 60px;
+    font-size: 14px;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 850px) {
+
+    .checkout-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .checkout-summary {
+        order: -1;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .checkout-header {
+        padding: 0 5%;
+    }
+
+    .brand {
+        font-size: 13px;
+    }
+
+    .back-cart {
+        font-size: 13px;
+    }
+
+    .checkout-container {
+        width: 94%;
+        margin: 30px auto;
+    }
+
+    .checkout-title h1 {
+        font-size: 29px;
+    }
+
+    .customer-form,
+    .checkout-summary {
+        padding: 20px;
+        border-radius: 14px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+}

@@ -1,268 +1,769 @@
-// ========================================
-// SOFTINA NATURAL VENTURES
-// PRODUCT DETAILS
-// ========================================
+/* =========================================
+   SOFTINA NATURAL VENTURES
+   PRODUCT DETAILS V2.1
+   PRODUCT + SERVICE DETAILS
+========================================= */
 
 const whatsappNumber = "2347036270880";
 
-
-// PRODUCTS
-const products = [
-
-    {
-        id: 1,
-        name: "Natural Supplement",
-        category: "Natural Supplements",
-        description:
-            "Natural supplement product from Softina Natural Ventures. Contact our team for complete product information, availability and usage guidance.",
-        price: null,
-        image: "images/products/product-1.jpg"
-    },
-
-    {
-        id: 2,
-        name: "Herbal Tea",
-        category: "Herbal Tea",
-        description:
-            "Herbal tea prepared in a convenient tea-bag format. Contact Softina Natural Ventures for product information and availability.",
-        price: null,
-        image: "images/products/product-2.jpg"
-    },
-
-    {
-        id: 3,
-        name: "Natural Cosmetics",
-        category: "Natural Cosmetics",
-        description:
-            "Natural cosmetic products designed for personal care. Contact us for product information and availability.",
-        price: null,
-        image: "images/products/product-3.jpg"
-    },
-
-    {
-        id: 4,
-        name: "Natural Oil",
-        category: "Natural Oils",
-        description:
-            "Natural extracted oil from Softina Natural Ventures. Contact us for product information, availability and price.",
-        price: null,
-        image: "images/products/product-4.jpg"
-    }
-
-];
+const products = SOFTINA_PRODUCTS;
 
 
-// GET PRODUCT ID
-const urlParams = new URLSearchParams(window.location.search);
+/* =========================================
+   GET PRODUCT / SERVICE ID
+========================================= */
 
-const productId = Number(urlParams.get("id"));
+const urlParams =
+    new URLSearchParams(window.location.search);
+
+const productId =
+    Number(urlParams.get("id"));
 
 
-// FIND PRODUCT
-const product = products.find(item => item.id === productId);
+/* =========================================
+   FIND ITEM
+========================================= */
+
+const item =
+    products.find(
+        product => product.id === productId
+    );
 
 
-// PAGE ELEMENT
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
 const container =
     document.getElementById("productDetails");
 
 
-// IF PRODUCT DOES NOT EXIST
-if (!product) {
+/* =========================================
+   IF ITEM NOT FOUND
+========================================= */
+
+if (!item) {
 
     container.innerHTML = `
-        <div class="details-card">
-            <div class="details-info">
-                <h1>Product Not Found</h1>
 
-                <p>
-                    Sorry, we could not find this product.
-                </p>
+        <div class="product-not-found">
 
-                <br>
+            <i class="fa-solid fa-circle-exclamation"></i>
 
-                <a href="products.html" class="back-products">
-                    Back to Products
-                </a>
-            </div>
+            <h2>
+                Product or Service Not Found
+            </h2>
+
+            <p>
+                The requested item could not be found.
+            </p>
+
+            <a href="products.html">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Products
+            </a>
+
         </div>
+
     `;
 
 }
 
 
-// PRODUCT EXISTS
+/* =========================================
+   ITEM FOUND
+========================================= */
+
 else {
 
-    const priceText = product.price === null
-        ? "Contact us for price"
-        : "₦" + product.price.toLocaleString("en-NG");
+    const isProduct =
+        item.type === "product";
+
+    const isService =
+        item.type === "service";
 
 
-    container.innerHTML = `
+    /* =====================================
+       PRICE
+    ===================================== */
 
-        <div class="details-card">
+    let priceHTML = "";
 
-            <div class="details-image">
+    if (
+        item.price !== null &&
+        item.price !== undefined &&
+        item.price !== ""
+    ) {
 
-                <img
-                    src="${product.image}"
-                    alt="${product.name}"
-                >
+        priceHTML = `
+
+            <div class="detail-price">
+
+                <strong>
+                    ₦${Number(item.price).toLocaleString()}
+                </strong>
+
+                ${
+                    item.oldPrice
+                        ? `
+                            <del>
+                                ₦${Number(
+                                    item.oldPrice
+                                ).toLocaleString()}
+                            </del>
+                        `
+                        : ""
+                }
 
             </div>
 
+        `;
 
-            <div class="details-info">
+    }
 
-                <span class="details-category">
-                    ${product.category}
+    else {
+
+        priceHTML = `
+
+            <div class="detail-price">
+
+                <span>
+                    Contact us for current price
                 </span>
 
+            </div>
 
-                <h1>
-                    ${product.name}
-                </h1>
+        `;
 
-
-                <p class="details-description">
-                    ${product.description}
-                </p>
+    }
 
 
-                <div class="details-price">
-                    ${priceText}
+    /* =====================================
+       BADGE
+    ===================================== */
+
+    let badgeHTML = "";
+
+    if (item.isNew) {
+
+        badgeHTML = `
+
+            <span class="detail-badge">
+                NEW
+            </span>
+
+        `;
+
+    }
+
+
+    /* =====================================
+       TYPE LABEL
+    ===================================== */
+
+    const typeLabel =
+        isProduct
+            ? "Physical Product"
+            : "Professional Service";
+
+
+    /* =====================================
+       META INFORMATION
+    ===================================== */
+
+    let metaHTML = "";
+
+
+    if (isProduct) {
+
+        metaHTML = `
+
+            <div class="product-meta">
+
+                ${
+                    item.size
+                        ? `
+                            <div>
+                                <i class="fa-solid fa-box"></i>
+                                <strong>Size:</strong>
+                                ${item.size}
+                            </div>
+                        `
+                        : ""
+                }
+
+                <div>
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <strong>Status:</strong>
+
+                    ${
+                        item.available
+                            ? "Available"
+                            : "Currently Unavailable"
+                    }
+
+                </div>
+
+                <div>
+
+                    <i class="fa-solid fa-truck"></i>
+
+                    <strong>Delivery:</strong>
+
+                    Contact us for delivery information
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    if (isService) {
+
+        metaHTML = `
+
+            <div class="product-meta">
+
+                <div>
+
+                    <i class="fa-solid fa-user-doctor"></i>
+
+                    <strong>Service Type:</strong>
+
+                    ${typeLabel}
+
+                </div>
+
+                <div>
+
+                    <i class="fa-solid fa-calendar-check"></i>
+
+                    <strong>Booking:</strong>
+
+                    Available by appointment
+
+                </div>
+
+                <div>
+
+                    <i class="fa-solid fa-comments"></i>
+
+                    <strong>Contact:</strong>
+
+                    Online or physical consultation
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* =====================================
+       ACTION AREA
+    ===================================== */
+
+    let actionHTML = "";
+
+
+    /* =====================================
+       PHYSICAL PRODUCT ACTIONS
+    ===================================== */
+
+    if (isProduct) {
+
+        if (item.available) {
+
+            actionHTML = `
+
+                <div class="quantity-section">
+
+                    <label>
+                        Quantity
+                    </label>
+
+                    <div class="quantity-control">
+
+                        <button
+                            type="button"
+                            id="decreaseQuantity"
+                        >
+                            −
+                        </button>
+
+                        <span id="quantity">
+                            1
+                        </span>
+
+                        <button
+                            type="button"
+                            id="increaseQuantity"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
                 </div>
 
 
-                <label>
-                    Quantity
-                </label>
-
-
-                <div class="quantity-box">
+                <div class="detail-actions">
 
                     <button
                         type="button"
-                        id="minusBtn">
-                        -
-                    </button>
-
-
-                    <input
-                        type="number"
-                        id="quantity"
-                        value="1"
-                        min="1"
+                        class="detail-cart-btn"
+                        id="addToCartBtn"
                     >
 
+                        <i class="fa-solid fa-cart-plus"></i>
+
+                        Add to Order
+
+                    </button>
+
 
                     <button
                         type="button"
-                        id="plusBtn">
-                        +
+                        class="detail-whatsapp-btn"
+                        id="orderNowBtn"
+                    >
+
+                        <i class="fa-brands fa-whatsapp"></i>
+
+                        Order Now
+
                     </button>
 
                 </div>
 
+            `;
+
+        }
+
+        else {
+
+            actionHTML = `
+
+                <div class="product-notice">
+
+                    <i class="fa-solid fa-circle-exclamation"></i>
+
+                    This product is currently unavailable.
+
+                    Please contact Softina Natural Ventures
+                    for availability information.
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+    /* =====================================
+       SERVICE ACTIONS
+    ===================================== */
+
+    if (isService) {
+
+        actionHTML = `
+
+            <div class="detail-actions">
 
                 <button
-                    class="order-now"
-                    id="orderButton">
+                    type="button"
+                    class="detail-whatsapp-btn service-request-btn"
+                    id="requestServiceBtn"
+                >
 
                     <i class="fa-brands fa-whatsapp"></i>
 
-                    Order via WhatsApp
+                    Request Service
 
                 </button>
 
+            </div>
 
-                <div class="notice">
+        `;
 
-                    <strong>Important:</strong>
+    }
 
-                    Product information, availability,
-                    price and appropriate usage should be
-                    confirmed directly with Softina Natural
-                    Ventures before purchase.
 
-                </div>
+    /* =====================================
+       DISCLAIMER
+    ===================================== */
+
+    const noticeText =
+        isProduct
+
+            ? `
+                Product information, availability,
+                pricing and delivery arrangements
+                should be confirmed with Softina Natural
+                Ventures before placing an order.
+            `
+
+            : `
+                Service information, consultation
+                arrangements and applicable charges
+                should be confirmed with Softina Natural
+                Ventures before booking.
+            `;
+
+
+    /* =====================================
+       RENDER PAGE
+    ===================================== */
+
+    container.innerHTML = `
+
+        <div class="product-detail-image">
+
+            ${badgeHTML}
+
+            <img
+                src="${item.image}"
+                alt="${item.name}"
+            >
+
+        </div>
+
+
+        <div class="product-detail-content">
+
+            <span class="detail-category">
+
+                ${item.categoryName}
+
+            </span>
+
+
+            <h1>
+                ${item.name}
+            </h1>
+
+
+            <p class="detail-description">
+
+                ${item.description}
+
+            </p>
+
+
+            ${priceHTML}
+
+
+            ${metaHTML}
+
+
+            ${actionHTML}
+
+
+            <div class="product-notice">
+
+                <i class="fa-solid fa-circle-info"></i>
+
+                ${noticeText}
 
             </div>
+
+
+            <a
+                href="products.html"
+                class="back-products"
+            >
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Back to Products
+
+            </a>
 
         </div>
 
     `;
 
 
-    const quantity =
-        document.getElementById("quantity");
+    /* =====================================
+       PHYSICAL PRODUCT JAVASCRIPT
+    ===================================== */
+
+    if (isProduct && item.available) {
+
+        let quantity = 1;
 
 
-    document
-        .getElementById("plusBtn")
-        .addEventListener("click", () => {
-
-            quantity.value =
-                Number(quantity.value) + 1;
-
-        });
-
-
-    document
-        .getElementById("minusBtn")
-        .addEventListener("click", () => {
-
-            if (Number(quantity.value) > 1) {
-
-                quantity.value =
-                    Number(quantity.value) - 1;
-
-            }
-
-        });
-
-
-    document
-        .getElementById("orderButton")
-        .addEventListener("click", () => {
-
-            let qty = Number(quantity.value);
-
-            if (!qty || qty < 1) {
-                qty = 1;
-            }
-
-
-            const message =
-
-`Hello Softina Natural Ventures,
-
-I want to order a product.
-
-Product: ${product.name}
-Category: ${product.category}
-Quantity: ${qty}
-
-Please provide the current price, availability and delivery information.
-
-Thank you.`;
-
-
-            const whatsappURL =
-                `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-
-
-            window.open(
-                whatsappURL,
-                "_blank"
+        const quantityDisplay =
+            document.getElementById(
+                "quantity"
             );
 
-        });
+
+        const decreaseButton =
+            document.getElementById(
+                "decreaseQuantity"
+            );
+
+
+        const increaseButton =
+            document.getElementById(
+                "increaseQuantity"
+            );
+
+
+        const addToCartButton =
+            document.getElementById(
+                "addToCartBtn"
+            );
+
+
+        const orderNowButton =
+            document.getElementById(
+                "orderNowBtn"
+            );
+
+
+        /* ================================
+           UPDATE QUANTITY
+        ================================= */
+
+        function updateQuantity() {
+
+            quantityDisplay.textContent =
+                quantity;
+
+        }
+
+
+        /* ================================
+           DECREASE
+        ================================= */
+
+        decreaseButton.addEventListener(
+            "click",
+            () => {
+
+                if (quantity > 1) {
+
+                    quantity--;
+
+                    updateQuantity();
+
+                }
+
+            }
+        );
+
+
+        /* ================================
+           INCREASE
+        ================================= */
+
+        increaseButton.addEventListener(
+            "click",
+            () => {
+
+                quantity++;
+
+                updateQuantity();
+
+            }
+        );
+
+
+        /* ================================
+           ADD TO CART
+        ================================= */
+
+        addToCartButton.addEventListener(
+            "click",
+            () => {
+
+                let cart =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "softinaCart"
+                        )
+                    ) || [];
+
+
+                const existing =
+                    cart.find(
+                        cartItem =>
+                            cartItem.id === item.id
+                    );
+
+
+                if (existing) {
+
+                    existing.quantity +=
+                        quantity;
+
+                }
+
+                else {
+
+                    cart.push({
+
+                        id: item.id,
+
+                        name: item.name,
+
+                        category:
+                            item.categoryName,
+
+                        image: item.image,
+
+                        quantity: quantity
+
+                    });
+
+                }
+
+
+                localStorage.setItem(
+                    "softinaCart",
+                    JSON.stringify(cart)
+                );
+
+
+                alert(
+                    `${item.name} added to your order.`
+                );
+
+
+                window.location.href =
+                    "cart.html";
+
+            }
+        );
+
+
+        /* ================================
+           ORDER NOW
+        ================================= */
+
+        orderNowButton.addEventListener(
+            "click",
+            () => {
+
+                let message =
+
+                    "Hello Softina Natural Ventures,%0A%0A" +
+
+                    "*PRODUCT ORDER*%0A%0A" +
+
+                    `Product: ${encodeURIComponent(
+                        item.name
+                    )}%0A` +
+
+                    `Category: ${encodeURIComponent(
+                        item.categoryName
+                    )}%0A` +
+
+                    `Quantity: ${quantity}%0A%0A` +
+
+                    "Please confirm the current price, " +
+                    "availability and delivery information.%0A%0A" +
+
+                    "Thank you.";
+
+
+                const whatsappURL =
+
+                    `https://wa.me/${whatsappNumber}` +
+                    `?text=${message}`;
+
+
+                window.open(
+                    whatsappURL,
+                    "_blank"
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================
+       SERVICE REQUEST
+    ===================================== */
+
+    if (isService) {
+
+        const requestButton =
+            document.getElementById(
+                "requestServiceBtn"
+            );
+
+
+        requestButton.addEventListener(
+            "click",
+            () => {
+
+                const message =
+
+                    "Hello Softina Natural Ventures,%0A%0A" +
+
+                    "*SERVICE REQUEST*%0A%0A" +
+
+                    `Service: ${encodeURIComponent(
+                        item.name
+                    )}%0A` +
+
+                    `Category: ${encodeURIComponent(
+                        item.categoryName
+                    )}%0A%0A` +
+
+                    "I would like to request more information " +
+                    "about this service.%0A%0A" +
+
+                    "Please provide the available " +
+                    "appointment/booking options, " +
+                    "service details and applicable charges.%0A%0A" +
+
+                    "Thank you.";
+
+
+                const whatsappURL =
+
+                    `https://wa.me/${whatsappNumber}` +
+                    `?text=${message}`;
+
+
+                window.open(
+                    whatsappURL,
+                    "_blank"
+                );
+
+            }
+        );
+
+    }
 
 }
 
 
-// YEAR
-document.getElementById("year").textContent =
-    new Date().getFullYear();
+/* =========================================
+   FOOTER YEAR
+========================================= */
+
+const yearElement =
+    document.getElementById("year");
+
+if (yearElement) {
+
+    yearElement.textContent =
+        new Date().getFullYear();
+
+}

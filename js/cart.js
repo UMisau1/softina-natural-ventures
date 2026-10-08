@@ -1,12 +1,13 @@
-// ==========================================
-// SOFTINA NATURAL VENTURES
-// CART / ORDER SYSTEM
-// ==========================================
-
-const whatsappNumber = "2347036270880";
+/* =========================================
+   SOFTINA NATURAL VENTURES
+   CART SYSTEM V3.0
+========================================= */
 
 
-// GET CART
+/* =========================================
+   GET CART
+========================================= */
+
 function getCart() {
 
     return JSON.parse(
@@ -16,7 +17,10 @@ function getCart() {
 }
 
 
-// SAVE CART
+/* =========================================
+   SAVE CART
+========================================= */
+
 function saveCart(cart) {
 
     localStorage.setItem(
@@ -27,14 +31,49 @@ function saveCart(cart) {
 }
 
 
-// DISPLAY CART
+/* =========================================
+   UPDATE CART COUNT
+========================================= */
+
+function updateCartCount() {
+
+    const cart = getCart();
+
+    const totalQuantity = cart.reduce(
+        (total, item) =>
+            total + Number(item.quantity || 0),
+        0
+    );
+
+    document
+        .querySelectorAll("#cartCount")
+        .forEach(element => {
+
+            element.textContent = totalQuantity;
+
+        });
+
+}
+
+
+/* =========================================
+   DISPLAY CART
+========================================= */
+
 function displayCart() {
 
     const cartContainer =
         document.getElementById("cartContainer");
 
+    if (!cartContainer) return;
+
+
     const cart = getCart();
 
+
+    /* =====================================
+       EMPTY CART
+    ===================================== */
 
     if (cart.length === 0) {
 
@@ -44,96 +83,119 @@ function displayCart() {
 
                 <i class="fa-solid fa-cart-shopping"></i>
 
-                <h2>Your order is empty</h2>
+                <h2>
+                    Your Order is Empty
+                </h2>
 
                 <p>
-                    You have not selected any product yet.
+                    You have not selected any
+                    product yet.
                 </p>
 
                 <a
                     href="products.html"
-                    class="continue-shopping">
-
+                    class="continue-shopping"
+                >
+                    <i class="fa-solid fa-store"></i>
                     Browse Products
-
                 </a>
 
+            </div>
 
         `;
+
+        updateCartCount();
 
         return;
 
     }
 
 
+    /* =====================================
+       CART ITEMS
+    ===================================== */
+
     let html = `
+
         <div class="cart-items">
+
     `;
 
 
-    cart.forEach((item, index) => {
+    cart.forEach(
+        (item, index) => {
 
-        html += `
+            html += `
 
-            <div class="cart-item">
+                <div class="cart-item">
 
-                <img
-                    src="${item.image}"
-                    alt="${item.name}"
-                >
-
-
-                <div>
-
-                    <h3>
-                        ${item.name}
-                    </h3>
-
-                    <p>
-                        ${item.category}
-                    </p>
+                    <img
+                        src="${item.image}"
+                        alt="${item.name}"
+                    >
 
 
-                    <div class="cart-quantity">
+                    <div>
 
-                        <button
-                            onclick="decreaseQuantity(${index})">
-                            -
-                        </button>
+                        <h3>
+                            ${item.name}
+                        </h3>
 
-                        <strong>
-                            ${item.quantity}
-                        </strong>
+                        <p>
+                            ${item.category || ""}
+                        </p>
 
-                        <button
-                            onclick="increaseQuantity(${index})">
-                            +
-                        </button>
+
+                        <div class="cart-quantity">
+
+                            <button
+                                onclick="decreaseQuantity(${index})"
+                                aria-label="Decrease quantity"
+                            >
+                                −
+                            </button>
+
+
+                            <strong>
+                                ${item.quantity}
+                            </strong>
+
+
+                            <button
+                                onclick="increaseQuantity(${index})"
+                                aria-label="Increase quantity"
+                            >
+                                +
+                            </button>
+
+                        </div>
 
                     </div>
 
+
+                    <button
+                        class="remove-btn"
+                        onclick="removeItem(${index})"
+                    >
+
+                        <i class="fa-solid fa-trash"></i>
+
+                        Remove
+
+                    </button>
+
                 </div>
 
+            `;
 
-                <button
-                    class="remove-btn"
-                    onclick="removeItem(${index})">
-
-                    <i class="fa-solid fa-trash"></i>
-
-                    Remove
-
-                </button>
-
-            </div>
-
-        `;
-
-    });
+        }
+    );
 
 
     html += `
+
         </div>
+
 
         <div class="cart-summary">
 
@@ -141,28 +203,34 @@ function displayCart() {
                 Order Summary
             </h2>
 
+
             <p>
+
                 <strong>
-                    ${cart.length}
+                    ${getTotalQuantity(cart)}
                 </strong>
-                product(s) selected.
+
+                item(s) selected.
+
             </p>
 
 
-            <button
-                class="whatsapp-order"
-                onclick="sendOrder()">
+            <a
+                href="checkout.html"
+                class="whatsapp-order checkout-button"
+            >
 
-                <i class="fa-brands fa-whatsapp"></i>
+                <i class="fa-solid fa-arrow-right"></i>
 
-                Send Order via WhatsApp
+                Proceed to Checkout
 
-            </button>
+            </a>
 
 
             <a
                 href="products.html"
-                class="continue-shopping">
+                class="continue-shopping"
+            >
 
                 <i class="fa-solid fa-arrow-left"></i>
 
@@ -171,110 +239,148 @@ function displayCart() {
             </a>
 
         </div>
+
     `;
 
 
     cartContainer.innerHTML = html;
 
-}
 
-
-// INCREASE
-function increaseQuantity(index) {
-
-    const cart = getCart();
-
-    cart[index].quantity++;
-
-    saveCart(cart);
-
-    displayCart();
+    updateCartCount();
 
 }
 
 
-// DECREASE
-function decreaseQuantity(index) {
+/* =========================================
+   TOTAL QUANTITY
+========================================= */
 
-    const cart = getCart();
+function getTotalQuantity(cart) {
 
-    if (cart[index].quantity > 1) {
-
-        cart[index].quantity--;
-
-    }
-
-    saveCart(cart);
-
-    displayCart();
-
-}
-
-
-// REMOVE
-function removeItem(index) {
-
-    const cart = getCart();
-
-    cart.splice(index, 1);
-
-    saveCart(cart);
-
-    displayCart();
-
-}
-
-
-// SEND ORDER
-function sendOrder() {
-
-    const cart = getCart();
-
-    if (cart.length === 0) {
-
-        alert("Your order is empty.");
-
-        return;
-
-    }
-
-
-    let message =
-        "Hello Softina Natural Ventures,%0A%0A" +
-        "I would like to place an order:%0A%0A";
-
-
-    cart.forEach((item, index) => {
-
-        message +=
-            `${index + 1}. ${item.name}%0A` +
-            `Category: ${item.category}%0A` +
-            `Quantity: ${item.quantity}%0A%0A`;
-
-    });
-
-
-    message +=
-        "Please confirm availability, current price and delivery information.%0A%0A" +
-        "Thank you.";
-
-
-    const url =
-        `https://wa.me/${whatsappNumber}?text=${message}`;
-
-
-    window.open(
-        url,
-        "_blank"
+    return cart.reduce(
+        (total, item) =>
+            total + Number(item.quantity || 0),
+        0
     );
 
 }
 
 
-// YEAR
-document.getElementById("year").textContent =
-    new Date().getFullYear();
+/* =========================================
+   INCREASE QUANTITY
+========================================= */
+
+function increaseQuantity(index) {
+
+    const cart = getCart();
 
 
-// INITIALIZE
+    if (!cart[index]) return;
+
+
+    cart[index].quantity =
+        Number(cart[index].quantity || 0) + 1;
+
+
+    saveCart(cart);
+
+
+    displayCart();
+
+}
+
+
+/* =========================================
+   DECREASE QUANTITY
+========================================= */
+
+function decreaseQuantity(index) {
+
+    const cart = getCart();
+
+
+    if (!cart[index]) return;
+
+
+    const currentQuantity =
+        Number(cart[index].quantity || 0);
+
+
+    if (currentQuantity > 1) {
+
+        cart[index].quantity =
+            currentQuantity - 1;
+
+    }
+
+
+    saveCart(cart);
+
+
+    displayCart();
+
+}
+
+
+/* =========================================
+   REMOVE ITEM
+========================================= */
+
+function removeItem(index) {
+
+    const cart = getCart();
+
+
+    if (!cart[index]) return;
+
+
+    const itemName =
+        cart[index].name;
+
+
+    const confirmRemove =
+        confirm(
+            `Remove "${itemName}" from your order?`
+        );
+
+
+    if (!confirmRemove) return;
+
+
+    cart.splice(
+        index,
+        1
+    );
+
+
+    saveCart(cart);
+
+
+    displayCart();
+
+}
+
+
+/* =========================================
+   FOOTER YEAR
+========================================= */
+
+const yearElement =
+    document.getElementById("year");
+
+
+if (yearElement) {
+
+    yearElement.textContent =
+        new Date().getFullYear();
+
+}
+
+
+/* =========================================
+   INITIALIZE
+========================================= */
+
+updateCartCount();
+
 displayCart();

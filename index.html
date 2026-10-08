@@ -453,6 +453,131 @@
       font-weight: bold;
     }
 
+    /* HOME PRODUCTS SHOWCASE */
+    .products {
+      background: var(--light);
+    }
+
+    .home-products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .home-product-card {
+      background: white;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid #e4ebe6;
+      box-shadow: 0 8px 25px rgba(0,0,0,.07);
+      transition: .3s;
+    }
+
+    .home-product-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 16px 35px rgba(0,0,0,.11);
+    }
+
+    .home-product-image {
+      position: relative;
+      height: 230px;
+      overflow: hidden;
+      background: #edf4ef;
+    }
+
+    .home-product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease;
+    }
+
+    .home-product-card:hover .home-product-image img {
+      transform: scale(1.06);
+    }
+
+    .home-product-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+      padding: 5px 10px;
+      border-radius: 30px;
+      background: var(--secondary);
+      color: var(--dark);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .home-product-content {
+      padding: 20px;
+    }
+
+    .home-product-category {
+      display: block;
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      margin-bottom: 8px;
+    }
+
+    .home-product-content h3 {
+      color: var(--dark);
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .home-product-content p {
+      color: #66736b;
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 45px;
+      margin-bottom: 18px;
+    }
+
+    .home-product-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 11px 15px;
+      border-radius: 25px;
+      background: var(--primary);
+      color: white;
+      font-size: 13px;
+      font-weight: 800;
+      transition: .3s;
+    }
+
+    .home-product-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .products-showcase-action {
+      text-align: center;
+      margin-top: 38px;
+    }
+
+    .view-all-products {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 13px 24px;
+      border: 2px solid var(--primary);
+      border-radius: 30px;
+      color: var(--primary);
+      font-weight: 800;
+      transition: .3s;
+    }
+
+    .view-all-products:hover {
+      background: var(--primary);
+      color: white;
+    }
+
     /* WHY US */
     .why-grid {
       display: grid;
@@ -674,7 +799,7 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .products-grid {
+      .home-products-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
@@ -707,7 +832,7 @@
 
       .stats-grid,
       .services-grid,
-      .products-grid,
+      .home-products-grid,
       .why-grid {
         grid-template-columns: 1fr;
       }
@@ -769,7 +894,7 @@
       <li><a href="#home">Gida</a></li>
       <li><a href="#about">Game da Mu</a></li>
       <li><a href="#services">Ayyuka</a></li>
-      <li><a href="#products">Products</a></li>
+      <li><a href="products.html">Products</a></li>
       <li><a href="#academy">Academy</a></li>
       <li><a href="#contact" class="nav-btn">Tuntube Mu</a></li>
     </ul>
@@ -807,7 +932,7 @@
 
       <div class="hero-buttons">
 
-        <a href="#products" class="btn btn-primary">
+        <a href="products.html" class="btn btn-primary">
           <i class="fa-solid fa-basket-shopping"></i>
           Duba Products
         </a>
@@ -1087,110 +1212,97 @@
 </section>
 
 
-<!-- PRODUCTS -->
+<!-- PRODUCTS SHOWCASE -->
 <section class="products" id="products">
 
   <div class="container">
 
     <div class="section-header">
-
-      <div class="mini-title">Store</div>
-
+      <div class="mini-title">Our Store</div>
       <h2>Kayayyakin Softina</h2>
-
       <p>
-        Za mu kawo muku cikakken catalog na products tare da bayanai,
-        farashi da tsarin oda.
+        Bincika wasu daga cikin kayayyakinmu. Danna "View Product"
+        domin samun cikakken bayani ko yin oda ta sabon tsarin Store dinmu.
       </p>
+    </div>
+
+    <div class="home-products-grid">
+
+      <article class="home-product-card">
+        <div class="home-product-image">
+          <span class="home-product-badge">Featured</span>
+          <img src="images/products/product-1.jpg"
+               alt="Natural Supplement"
+               loading="lazy">
+        </div>
+        <div class="home-product-content">
+          <span class="home-product-category">Natural Supplements</span>
+          <h3>Natural Supplement</h3>
+          <p>Natural supplement products daga Softina Natural Ventures.</p>
+          <a href="product-details.html?id=1" class="home-product-btn">
+            View Product <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </article>
+
+      <article class="home-product-card">
+        <div class="home-product-image">
+          <span class="home-product-badge">Featured</span>
+          <img src="images/products/product-2.jpg"
+               alt="Herbal Tea"
+               loading="lazy">
+        </div>
+        <div class="home-product-content">
+          <span class="home-product-category">Herbal Tea</span>
+          <h3>Herbal Tea</h3>
+          <p>Herbal tea da Tea Bag products domin saukin amfani.</p>
+          <a href="product-details.html?id=2" class="home-product-btn">
+            View Product <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </article>
+
+      <article class="home-product-card">
+        <div class="home-product-image">
+          <span class="home-product-badge">Featured</span>
+          <img src="images/products/product-3.jpg"
+               alt="Natural Cosmetics"
+               loading="lazy">
+        </div>
+        <div class="home-product-content">
+          <span class="home-product-category">Natural Cosmetics</span>
+          <h3>Natural Cosmetics</h3>
+          <p>Natural cosmetic products domin kula da personal care.</p>
+          <a href="product-details.html?id=3" class="home-product-btn">
+            View Product <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </article>
+
+      <article class="home-product-card">
+        <div class="home-product-image">
+          <span class="home-product-badge">Featured</span>
+          <img src="images/products/product-4.jpg"
+               alt="Natural Oil"
+               loading="lazy">
+        </div>
+        <div class="home-product-content">
+          <span class="home-product-category">Natural Oils</span>
+          <h3>Natural Oil</h3>
+          <p>Natural extracted oils daga Softina Natural Ventures.</p>
+          <a href="product-details.html?id=4" class="home-product-btn">
+            View Product <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </article>
 
     </div>
 
-
-    <div class="products-grid">
-
-      <div class="product-card">
-
-        <div class="product-image"></div>
-
-        <div class="product-info">
-
-          <h3>Natural Supplements</h3>
-
-          <p>
-            Natural supplements daga Softina Natural Ventures.
-          </p>
-
-          <a href="https://wa.me/2347036270880" class="order-btn">
-            Yi Oda
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <div class="product-card">
-
-        <div class="product-image"></div>
-
-        <div class="product-info">
-
-          <h3>Herbal Tea</h3>
-
-          <p>
-            Herbal tea a cikin tsarin Tea Bag domin saukin amfani.
-          </p>
-
-          <a href="https://wa.me/2347036270880" class="order-btn">
-            Yi Oda
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <div class="product-card">
-
-        <div class="product-image"></div>
-
-        <div class="product-info">
-
-          <h3>Natural Oils</h3>
-
-          <p>
-            Ingantattun mai extracted daga kayan halitta.
-          </p>
-
-          <a href="https://wa.me/2347036270880" class="order-btn">
-            Yi Oda
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <div class="product-card">
-
-        <div class="product-image"></div>
-
-        <div class="product-info">
-
-          <h3>Natural Cosmetics</h3>
-
-          <p>
-            Kayan kwalliya na natural domin kula da fata.
-          </p>
-
-          <a href="https://wa.me/2347036270880" class="order-btn">
-            Yi Oda
-          </a>
-
-        </div>
-
-      </div>
-
+    <div class="products-showcase-action">
+      <a href="products.html" class="view-all-products">
+        View All Products
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
     </div>
 
   </div>
