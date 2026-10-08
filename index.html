@@ -310,6 +310,9 @@
         url("images/likitan-softina.jpg") center/cover no-repeat;
     }
 
+
+    .doctor-image img{width:100%;height:100%;object-fit:cover;}
+
     .doctor-info {
       padding: 25px;
     }
@@ -756,6 +759,81 @@
       box-shadow: 0 8px 25px rgba(0,0,0,.25);
     }
 
+
+    /* BRAND LOGO */
+    .brand-logo-img{
+      width:52px;
+      height:52px;
+      object-fit:contain;
+      border-radius:12px;
+      background:#fff;
+      padding:4px;
+      box-shadow:0 4px 14px rgba(0,0,0,.08);
+    }
+
+    /* LANGUAGE SWITCHER */
+    .language-switcher{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      margin-left:10px;
+    }
+    .language-switcher select{
+      border:1px solid #dfe8e2;
+      background:#fff;
+      color:var(--dark);
+      border-radius:20px;
+      padding:8px 11px;
+      font-weight:700;
+      font-size:12px;
+      cursor:pointer;
+      outline:none;
+    }
+
+    /* YOUTUBE VIDEO SECTION */
+    .videos-section{background:#fff;}
+    .youtube-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+    }
+    .youtube-card{
+      background:#fff;
+      border-radius:20px;
+      overflow:hidden;
+      border:1px solid #e5ece7;
+      box-shadow:0 10px 28px rgba(0,0,0,.07);
+      transition:.3s;
+    }
+    .youtube-card:hover{transform:translateY(-6px);box-shadow:0 16px 35px rgba(0,0,0,.11);}
+    .youtube-frame{position:relative;aspect-ratio:16/9;background:#111;}
+    .youtube-frame iframe{width:100%;height:100%;border:0;display:block;}
+    .youtube-info{padding:18px 20px 20px;}
+    .youtube-info h3{color:var(--dark);margin-bottom:6px;}
+    .youtube-info p{font-size:14px;color:#66736b;}
+    .youtube-channel-btn{
+      display:inline-flex;align-items:center;gap:8px;margin-top:24px;
+      background:#ff0000;color:#fff;padding:12px 20px;border-radius:30px;font-weight:800;
+    }
+
+    /* LANGUAGE NOTICE */
+    .language-note{font-size:12px;color:#718078;margin-top:8px;}
+
+    /* HOMEPAGE PRODUCT MANAGEMENT NOTE */
+    .products-management-note{
+      margin-top:18px;text-align:center;font-size:13px;color:#718078;
+    }
+
+    @media(max-width:950px){
+      .youtube-grid{grid-template-columns:repeat(2,1fr);}
+      .language-switcher{margin:4px 0 8px;}
+    }
+    @media(max-width:600px){
+      .youtube-grid{grid-template-columns:1fr;}
+      .brand-logo-img{width:46px;height:46px;}
+      .language-switcher select{width:100%;}
+    }
+
     /* RESPONSIVE */
     @media (max-width: 950px) {
 
@@ -879,11 +957,10 @@
 <header>
   <nav class="container">
 
-    <a href="#home" class="logo">
-      <div class="logo-icon">
-        <i class="fa-solid fa-leaf"></i>
-      </div>
-
+    <a href="#home" class="logo" aria-label="Softina Natural Ventures">
+      <img src="images/softina-logo.png"
+           alt="Softina Natural Ventures Logo"
+           class="brand-logo-img">
       <div>
         SOFTINA
         <span>NATURAL VENTURES</span>
@@ -896,8 +973,17 @@
       <li><a href="#services">Ayyuka</a></li>
       <li><a href="products.html">Products</a></li>
       <li><a href="#academy">Academy</a></li>
+      <li><a href="#videos">Videos</a></li>
       <li><a href="#contact" class="nav-btn">Tuntube Mu</a></li>
     </ul>
+
+    <div class="language-switcher">
+      <i class="fa-solid fa-language" style="color:var(--primary);"></i>
+      <select id="languageSelect" aria-label="Select language">
+        <option value="ha">Hausa</option>
+        <option value="en">English</option>
+      </select>
+    </div>
 
     <div class="menu-btn" id="menuBtn">
       <i class="fa-solid fa-bars"></i>
@@ -998,7 +1084,9 @@
 
       <div class="doctor-card">
 
-        <div class="doctor-image"></div>
+        <div class="doctor-image">
+          <img src="images/likitan-softina.jpg" alt="Muhammad Sidi Ibrahim - Likitan Softina" loading="lazy">
+        </div>
 
         <div class="doctor-info">
 
@@ -1041,7 +1129,7 @@
 
           <div>
             <i class="fa-solid fa-circle-check"></i>
-            <span><strong>Kwazo da jajircewa</strong></span>
+            <span><strong>Doctor of Pharmacy (Pharm-D)</strong></span>
           </div>
 
           <div>
@@ -1305,6 +1393,10 @@
       </a>
     </div>
 
+    <p class="products-management-note">
+      Ana iya kara sabbin kayayyaki ba tare da canza wannan shafin ba; ana sarrafa catalog din a <strong>js/products-data.js</strong>.
+    </p>
+
   </div>
 
 </section>
@@ -1407,6 +1499,68 @@
 
 </section>
 
+
+
+<!-- YOUTUBE VIDEOS -->
+<section class="videos-section" id="videos">
+  <div class="container">
+    <div class="section-header">
+      <div class="mini-title">YouTube</div>
+      <h2>Bidiyon Softina</h2>
+      <p>Ku kalli sabbin bayanai, ilmantarwa da shirye-shiryen Softina kai tsaye daga YouTube.</p>
+    </div>
+
+    <div class="youtube-grid">
+      <article class="youtube-card">
+        <div class="youtube-frame">
+          <iframe src="https://www.youtube.com/embed/YOUR_YOUTUBE_VIDEO_ID_1"
+                  title="Softina YouTube Video 1"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+        </div>
+        <div class="youtube-info">
+          <h3>Sabon Bidiyon Softina</h3>
+          <p>Ilmantarwa da bayanai daga Softina Natural Ventures.</p>
+        </div>
+      </article>
+
+      <article class="youtube-card">
+        <div class="youtube-frame">
+          <iframe src="https://www.youtube.com/embed/YOUR_YOUTUBE_VIDEO_ID_2"
+                  title="Softina YouTube Video 2"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+        </div>
+        <div class="youtube-info">
+          <h3>Health & Natural Living</h3>
+          <p>Shawarwari da bayanai masu amfani ga jama'a.</p>
+        </div>
+      </article>
+
+      <article class="youtube-card">
+        <div class="youtube-frame">
+          <iframe src="https://www.youtube.com/embed/YOUR_YOUTUBE_VIDEO_ID_3"
+                  title="Softina YouTube Video 3"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+        </div>
+        <div class="youtube-info">
+          <h3>Softina Academy</h3>
+          <p>Darussa da ilmantarwa kan Herbal Medicine.</p>
+        </div>
+      </article>
+    </div>
+
+    <div style="text-align:center;">
+      <a class="youtube-channel-btn" href="https://www.youtube.com/" target="_blank" rel="noopener">
+        <i class="fa-brands fa-youtube"></i> Visit YouTube Channel
+      </a>
+    </div>
+  </div>
+</section>
 
 <!-- SOCIAL MEDIA -->
 <section class="social">
@@ -1592,42 +1746,147 @@
 
 <script>
 
+  /* MOBILE MENU */
   const menuBtn = document.getElementById("menuBtn");
   const navLinks = document.getElementById("navLinks");
 
-  menuBtn.addEventListener("click", () => {
-    navLinks.classList.toggle("active");
-
-    const icon = menuBtn.querySelector("i");
-
-    if (navLinks.classList.contains("active")) {
-      icon.classList.remove("fa-bars");
-      icon.classList.add("fa-xmark");
-    } else {
-      icon.classList.remove("fa-xmark");
-      icon.classList.add("fa-bars");
-    }
-  });
-
-
-  document.querySelectorAll(".nav-links a").forEach(link => {
-
-    link.addEventListener("click", () => {
-
-      navLinks.classList.remove("active");
-
+  if (menuBtn && navLinks) {
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
       const icon = menuBtn.querySelector("i");
-
-      icon.classList.remove("fa-xmark");
-      icon.classList.add("fa-bars");
-
+      if (icon) {
+        icon.classList.toggle("fa-bars");
+        icon.classList.toggle("fa-xmark");
+      }
     });
 
-  });
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("active");
+        const icon = menuBtn.querySelector("i");
+        if (icon) {
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
+        }
+      });
+    });
+  }
 
+  /* LANGUAGE SYSTEM: Hausa / English */
+  const languageSelect = document.getElementById("languageSelect");
 
-  document.getElementById("year").textContent =
-    new Date().getFullYear();
+  const translations = {
+    ha: {
+      navHome: "Gida",
+      navAbout: "Game da Mu",
+      navServices: "Ayyuka",
+      navProducts: "Products",
+      navAcademy: "Academy",
+      navVideos: "Videos",
+      navContact: "Tuntube Mu",
+      heroBadge: "SOFTINA NATURAL VENTURES",
+      heroTitle: "Lafiya ta hanyar <span>Ilimi da Nature</span>",
+      heroText: "Muna samar da kayayyaki da ayyuka na Natural & Herbal Medicine, Natural Cosmetics, Supplements, Diet & Lifestyle da sauran hanyoyin kula da lafiya karkashin jagorancin kwararru.",
+      heroProducts: "Duba Products",
+      heroContact: "Tuntube Mu",
+      aboutMini: "Game da Mu",
+      aboutTitle: "Waye Likitan Softina?",
+      servicesMini: "Abin da Muke Yi",
+      servicesTitle: "Sassan Ayyukanmu",
+      productsMini: "Our Store",
+      productsTitle: "Kayayyakin Softina",
+      productsBtn: "View All Products",
+      videosMini: "YouTube",
+      videosTitle: "Bidiyon Softina",
+      videosText: "Ku kalli sabbin bayanai, ilmantarwa da shirye-shiryen Softina kai tsaye daga YouTube.",
+      socialMini: "Kasance Tare da Mu",
+      socialTitle: "Social Media",
+      contactMini: "Tuntube Mu",
+      languageNote: "Za ka iya canza harshe daga nan.",
+      youtubeBtn: "Visit YouTube Channel"
+    },
+    en: {
+      navHome: "Home",
+      navAbout: "About Us",
+      navServices: "Services",
+      navProducts: "Products",
+      navAcademy: "Academy",
+      navVideos: "Videos",
+      navContact: "Contact Us",
+      heroBadge: "SOFTINA NATURAL VENTURES",
+      heroTitle: "Health through <span>Knowledge & Nature</span>",
+      heroText: "We provide Natural & Herbal Medicine, Natural Cosmetics, Supplements, Diet & Lifestyle services and other natural health solutions under professional guidance.",
+      heroProducts: "View Products",
+      heroContact: "Contact Us",
+      aboutMini: "About Us",
+      aboutTitle: "Who is Likitan Softina?",
+      servicesMini: "What We Do",
+      servicesTitle: "Our Services",
+      productsMini: "Our Store",
+      productsTitle: "Softina Products",
+      productsBtn: "View All Products",
+      videosMini: "YouTube",
+      videosTitle: "Softina Videos",
+      videosText: "Watch Softina's latest educational content and updates directly from YouTube.",
+      socialMini: "Stay Connected",
+      socialTitle: "Social Media",
+      contactMini: "Contact Us",
+      languageNote: "You can change the language here.",
+      youtubeBtn: "Visit YouTube Channel"
+    }
+  };
+
+  function setText(selector, value, html = false) {
+    const el = document.querySelector(selector);
+    if (el) html ? el.innerHTML = value : el.textContent = value;
+  }
+
+  function applyLanguage(lang) {
+    const t = translations[lang] || translations.ha;
+
+    const nav = document.querySelectorAll(".nav-links li a");
+    if (nav[0]) nav[0].textContent = t.navHome;
+    if (nav[1]) nav[1].textContent = t.navAbout;
+    if (nav[2]) nav[2].textContent = t.navServices;
+    if (nav[3]) nav[3].textContent = t.navProducts;
+    if (nav[4]) nav[4].textContent = t.navAcademy;
+    if (nav[5]) nav[5].textContent = t.navVideos;
+    if (nav[6]) nav[6].textContent = t.navContact;
+
+    setText(".hero .badge", '<i class="fa-solid fa-leaf"></i> ' + t.heroBadge, true);
+    setText(".hero h1", t.heroTitle, true);
+    setText(".hero p", t.heroText);
+    setText(".hero-buttons .btn-primary", '<i class="fa-solid fa-basket-shopping"></i> ' + t.heroProducts, true);
+    setText(".hero-buttons .btn-outline", '<i class="fa-solid fa-phone"></i> ' + t.heroContact, true);
+
+    setText(".about .mini-title", t.aboutMini);
+    setText(".about .section-header h2", t.aboutTitle);
+    setText("#services .mini-title", t.servicesMini);
+    setText("#services .section-header h2", t.servicesTitle);
+    setText("#products .mini-title", t.productsMini);
+    setText("#products .section-header h2", t.productsTitle);
+    setText(".view-all-products", t.productsBtn, false);
+    setText("#videos .mini-title", t.videosMini);
+    setText("#videos .section-header h2", t.videosTitle);
+    setText("#videos .section-header p", t.videosText);
+    setText(".social .mini-title", t.socialMini);
+    setText(".social .section-header h2", t.socialTitle);
+    setText("#contact .mini-title", t.contactMini);
+    setText(".youtube-channel-btn", '<i class="fa-brands fa-youtube"></i> ' + t.youtubeBtn, true);
+
+    document.documentElement.lang = lang;
+    localStorage.setItem("softinaLanguage", lang);
+    if (languageSelect) languageSelect.value = lang;
+  }
+
+  if (languageSelect) {
+    languageSelect.addEventListener("change", e => applyLanguage(e.target.value));
+    applyLanguage(localStorage.getItem("softinaLanguage") || "ha");
+  }
+
+  /* FOOTER YEAR */
+  const year = document.getElementById("year");
+  if (year) year.textContent = new Date().getFullYear();
 
 </script>
 
