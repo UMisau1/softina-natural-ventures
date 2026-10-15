@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Product Manager | Softina Natural Ventures</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="css/product-manager.css">
+</head>
+
+<body>
+
+<header class="admin-header">
+
+    <div>
+        <h1>
+            <i class="fa-solid fa-boxes-stacked"></i>
+            Product Manager
+        </h1>
+
+        <p>Softina Natural Ventures</p>
+    </div>
+
+    <a href="products.html" class="back-btn">
+        <i class="fa-solid fa-store"></i>
+        View Shop
+    </a>
+
+</header>
+
+
+<main class="admin-container">
+
+    <!-- =========================
+         CONTROL BAR
+    ========================== -->
+
+    <section class="control-panel">
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="searchProduct"
+                placeholder="Search products..."
+            >
+
+        </div>
+
+
+        <button
+            type="button"
+            class="btn btn-primary"
+            id="addProductBtn">
+
+            <i class="fa-solid fa-plus"></i>
+            Add New Product
+
+        </button>
+
+
+        <button
+            type="button"
+            class="btn btn-secondary"
+            id="exportJsonBtn">
+
+            <i class="fa-solid fa-file-export"></i>
+            Export JSON
+
+        </button>
+
+
+        <label class="btn btn-secondary import-btn">
+
+            <i class="fa-solid fa-file-import"></i>
+            Import JSON
+
+            <input
+                type="file"
+                id="importJsonInput"
+                accept=".json"
+                hidden
+            >
+
+        </label>
+
+
+        <button
+            type="button"
+            class="btn btn-success"
+            id="generateJsBtn">
+
+            <i class="fa-solid fa-code"></i>
+            Generate products-data.js
+
+        </button>
+
+    </section>
+
+
+    <!-- =========================
+         STATISTICS
+    ========================== -->
+
+    <section class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-box"></i>
+            </div>
+
+            <div>
+                <span>Total Items</span>
+                <strong id="totalProducts">0</strong>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+
+            <div>
+                <span>Products</span>
+                <strong id="totalPhysicalProducts">0</strong>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-handshake"></i>
+            </div>
+
+            <div>
+                <span>Services</span>
+                <strong id="totalServices">0</strong>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-star"></i>
+            </div>
+
+            <div>
+                <span>Featured</span>
+                <strong id="totalFeatured">0</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PRODUCT FORM
+    ========================== -->
+
+    <section
+        class="product-form-section"
+        id="productFormSection">
+
+        <div class="section-heading">
+
+            <div>
+                <h2 id="formTitle">
+                    Add New Product
+                </h2>
+
+                <p>
+                    Enter product or service information below.
+                </p>
+            </div>
+
+            <button
+                type="button"
+                class="close-form"
+                id="closeFormBtn">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <form id="productForm">
+
+            <input
+                type="hidden"
+                id="productId"
+            >
+
+
+            <div class="form-grid">
+
+                <!-- NAME -->
+
+                <div class="form-group full">
+
+                    <label for="productName">
+                        Product / Service Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="productName"
+                        required
+                        placeholder="Example: Natural Supplement"
+                    >
+
+                </div>
+
+
+                <!-- TYPE -->
+
+                <div class="form-group">
+
+                    <label for="productType">
+                        Type
+                    </label>
+
+                    <select id="productType">
+
+                        <option value="product">
+                            Physical Product
+                        </option>
+
+                        <option value="service">
+                            Service
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- CATEGORY -->
+
+                <div class="form-group">
+
+                    <label for="productCategory">
+                        Category
+                    </label>
+
+                    <select id="productCategory">
+
+                        <option value="supplements">
+                            Natural Supplements
+                        </option>
+
+                        <option value="herbal-tea">
+                            Herbal Tea
+                        </option>
+
+                        <option value="cosmetics">
+                            Natural Cosmetics
+                        </option>
+
+                        <option value="oils">
+                            Natural Oils
+                        </option>
+
+                        <option value="spices">
+                            Spices & Seasoning
+                        </option>
+
+                        <option value="diet-lifestyle">
+                            Diet & Lifestyle
+                        </option>
+
+                        <option value="homeopathy">
+                            Homeopathy
+                        </option>
+
+                        <option value="academy">
+                            Softina Academy
+                        </option>
+
+                        <option value="research-consultation">
+                            Research & Consultation
+                        </option>
+
+                        <option value="consultation">
+                            Online Consultation
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- PRICE -->
+
+                <div class="form-group">
+
+                    <label for="productPrice">
+                        Price
+                    </label>
+
+                    <input
+                        type="number"
+                        id="productPrice"
+                        min="0"
+                        placeholder="Example: 15000"
+                    >
+
+                </div>
+
+
+                <!-- OLD PRICE -->
+
+                <div class="form-group">
+
+                    <label for="productOldPrice">
+                        Old Price
+                    </label>
+
+                    <input
+                        type="number"
+                        id="productOldPrice"
+                        min="0"
+                        placeholder="Optional"
+                    >
+
+                </div>
+
+
+                <!-- SIZE -->
+
+                <div class="form-group">
+
+                    <label for="productSize">
+                        Size
+                    </label>
+
+                    <input
+                        type="text"
+                        id="productSize"
+                        placeholder="Example: 100ml / 60 Capsules"
+                    >
+
+                </div>
+
+
+                <!-- STOCK -->
+
+                <div class="form-group">
+
+                    <label for="stockStatus">
+                        Stock Status
+                    </label>
+
+                    <select id="stockStatus">
+
+                        <option value="In Stock">
+                            In Stock
+                        </option>
+
+                        <option value="Available">
+                            Available
+                        </option>
+
+                        <option value="Out of Stock">
+                            Out of Stock
+                        </option>
+
+                        <option value="Coming Soon">
+                            Coming Soon
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- IMAGE -->
+
+                <div class="form-group full">
+
+                    <label for="productImage">
+                        Product Image Path
+                    </label>
+
+                    <input
+                        type="text"
+                        id="productImage"
+                        placeholder="images/products/product-11.jpg"
+                    >
+
+                    <small>
+                        Example:
+                        images/products/product-11.jpg
+                    </small>
+
+                </div>
+
+
+                <!-- SHORT DESCRIPTION -->
+
+                <div class="form-group full">
+
+                    <label for="shortDescription">
+                        Short Description
+                    </label>
+
+                    <textarea
+                        id="shortDescription"
+                        rows="3"
+                        placeholder="Short description..."
+                    ></textarea>
+
+                </div>
+
+
+                <!-- FULL DESCRIPTION -->
+
+                <div class="form-group full">
+
+                    <label for="productDescription">
+                        Full Description
+                    </label>
+
+                    <textarea
+                        id="productDescription"
+                        rows="6"
+                        placeholder="Full product/service description..."
+                    ></textarea>
+
+                </div>
+
+
+                <!-- CHECKBOXES -->
+
+                <div class="checkbox-group full">
+
+                    <label class="check-item">
+
+                        <input
+                            type="checkbox"
+                            id="productAvailable"
+                            checked
+                        >
+
+                        <span>
+                            Available
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-item">
+
+                        <input
+                            type="checkbox"
+                            id="productFeatured"
+                        >
+
+                        <span>
+                            Featured
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-item">
+
+                        <input
+                            type="checkbox"
+                            id="productNew"
+                        >
+
+                        <span>
+                            New Product
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="cancelProductBtn">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-success">
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Save Product
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- =========================
+         PRODUCTS TABLE
+    ========================== -->
+
+    <section class="products-section">
+
+        <div class="section-heading">
+
+            <div>
+                <h2>Products & Services</h2>
+
+                <p>
+                    Manage your Softina catalogue.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Image</th>
+
+                        <th>Name</th>
+
+                        <th>Category</th>
+
+                        <th>Type</th>
+
+                        <th>Price</th>
+
+                        <th>Status</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="productsTableBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+
+<script src="js/products-data.js"></script>
+
+<script src="js/product-manager.js"></script>
+
+</body>
+</html>

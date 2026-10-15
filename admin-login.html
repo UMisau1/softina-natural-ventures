@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Softina Natural Ventures</title>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="login-page">
+
+    <main class="login-card">
+        <a class="brand" href="index.html">SOFTINA</a>
+        <p class="brand-subtitle">NATURAL VENTURES</p>
+
+        <h1>Admin Login</h1>
+        <p class="muted">Sign in to access the administration dashboard.</p>
+
+        <form id="adminLoginForm">
+            <label for="adminUsername">Username</label>
+            <input
+                type="text"
+                id="adminUsername"
+                name="username"
+                placeholder="Enter username"
+                autocomplete="username"
+                required
+            >
+
+            <label for="adminPassword">Password</label>
+            <input
+                type="password"
+                id="adminPassword"
+                name="password"
+                placeholder="Enter password"
+                autocomplete="current-password"
+                required
+            >
+
+            <p id="loginMessage" class="form-message" role="alert"></p>
+
+            <button type="submit" class="btn btn-primary btn-full">
+                Sign In
+            </button>
+        </form>
+
+        <a class="back-link" href="index.html">← Back to website</a>
+
+        <p class="security-note">
+            Prototype only: this browser-based login is not secure enough
+            for protecting real business data.
+        </p>
+    </main>
+
+    <script src="js/admin-login.js"></script>
+</body>
+</html>

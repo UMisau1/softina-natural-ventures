@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Softina Natural Ventures</title>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="dashboard-page">
+
+    <header class="admin-topbar">
+        <a class="admin-brand" href="admin-dashboard.html">
+            SOFTINA <span>ADMIN</span>
+        </a>
+
+        <div class="topbar-actions">
+            <a href="index.html" target="_blank" rel="noopener">View Website ↗</a>
+            <button id="logoutButton" class="btn btn-danger" type="button">
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="admin-profile">
+                <div class="profile-avatar">S</div>
+                <div>
+                    <strong>Administrator</strong>
+                    <small>Softina Natural Ventures</small>
+                </div>
+            </div>
+
+            <nav class="admin-nav" aria-label="Admin navigation">
+                <a class="nav-link active" href="#overview" data-section="overview">
+                    <span>▦</span> Dashboard Overview
+                </a>
+                <a class="nav-link" href="#products" data-section="products">
+                    <span>□</span> Products
+                </a>
+                <a class="nav-link" href="#orders" data-section="orders">
+                    <span>▤</span> Orders
+                </a>
+                <a class="nav-link" href="#services" data-section="services">
+                    <span>✧</span> Services
+                </a>
+                <a class="nav-link" href="#settings" data-section="settings">
+                    <span>⚙</span> Settings
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <small>Softina Natural Ventures</small>
+                <small>Admin Prototype V1.0</small>
+            </div>
+        </aside>
+
+        <main class="admin-main">
+            <section class="admin-section active" id="overview">
+                <div class="page-heading">
+                    <div>
+                        <p class="eyebrow">ADMINISTRATION</p>
+                        <h1>Dashboard Overview</h1>
+                        <p class="muted">Welcome to your Softina management area.</p>
+                    </div>
+                    <button class="btn btn-primary" id="refreshDashboard" type="button">
+                        Refresh Data
+                    </button>
+                </div>
+
+                <div class="notice">
+                    <strong>Prototype mode:</strong>
+                    This dashboard stores its product records in this browser only.
+                    It does not yet receive orders from your live website or use a
+                    shared database.
+                </div>
+
+                <div class="stats-grid">
+                    <article class="stat-card">
+                        <span class="stat-label">Products</span>
+                        <strong id="statProducts">0</strong>
+                        <small>Records in this browser</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <span class="stat-label">Orders</span>
+                        <strong id="statOrders">0</strong>
+                        <small>Orders available locally</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <span class="stat-label">Pending Orders</span>
+                        <strong id="statPending">0</strong>
+                        <small>Awaiting processing</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <span class="stat-label">Completed Orders</span>
+                        <strong id="statCompleted">0</strong>
+                        <small>Marked completed</small>
+                    </article>
+                </div>
+
+                <section class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Recent Orders</h2>
+                            <p class="muted">Orders saved under the local order key.</p>
+                        </div>
+                        <button class="btn btn-secondary" data-go="orders" type="button">
+                            View All
+                        </button>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentOrdersBody"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+
+            <section class="admin-section" id="products">
+                <div class="page-heading">
+                    <div>
+                        <p class="eyebrow">SHOP MANAGEMENT</p>
+                        <h1>Product Management</h1>
+                        <p class="muted">Add and manage records stored in this browser.</p>
+                    </div>
+                    <button class="btn btn-primary" id="showProductForm" type="button">
+                        + Add Product
+                    </button>
+                </div>
+
+                <div class="notice warning">
+                    Products added here are saved under a separate admin key.
+                    They will not automatically update <code>products-data.js</code>
+                    or the public shop.
+                </div>
+
+                <form id="productForm" class="panel product-form hidden">
+                    <h2 id="productFormTitle">Add New Product</h2>
+
+                    <input type="hidden" id="productId">
+
+                    <div class="form-grid">
+                        <div>
+                            <label for="productName">Product Name *</label>
+                            <input id="productName" type="text" required maxlength="120">
+                        </div>
+
+                        <div>
+                            <label for="productCategory">Category *</label>
+                            <input id="productCategory" type="text" required maxlength="80"
+                                   placeholder="e.g. Herbal Products">
+                        </div>
+
+                        <div>
+                            <label for="productPrice">Price (₦)</label>
+                            <input id="productPrice" type="number" min="0" step="0.01"
+                                   placeholder="Leave blank if price is on request">
+                        </div>
+
+                        <div>
+                            <label for="productImage">Image Path or URL</label>
+                            <input id="productImage" type="text"
+                                   placeholder="images/products/product-1.jpg">
+                        </div>
+
+                        <div class="full-width">
+                            <label for="productDescription">Description</label>
+                            <textarea id="productDescription" rows="3"
+                                      maxlength="1000"></textarea>
+                        </div>
+
+                        <div>
+                            <label for="productStatus">Availability</label>
+                            <select id="productStatus">
+                                <option value="Available">Available</option>
+                                <option value="Unavailable">Unavailable</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-primary" type="submit" id="saveProductButton">
+                            Save Product
+                        </button>
+                        <button class="btn btn-secondary" type="button" id="cancelProductForm">
+                            Cancel
+                        </button>
+                    </div>
+                    <p id="productFormMessage" class="form-message" role="status"></p>
+                </form>
+
+                <section class="panel">
+                    <div class="panel-heading">
+                        <h2>Product Records</h2>
+                        <input id="productSearch" class="search-input" type="search"
+                               placeholder="Search products..." aria-label="Search products">
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableBody"></tbody>
+                        </table>
+                    </div>
+                    <p id="productsEmptyMessage" class="empty-message hidden">
+                        No products have been added to the admin records yet.
+                    </p>
+                </section>
+            </section>
+
+            <section class="admin-section" id="orders">
+                <div class="page-heading">
+                    <div>
+                        <p class="eyebrow">SALES MANAGEMENT</p>
+                        <h1>Orders Management</h1>
+                        <p class="muted">Review order records available in this browser.</p>
+                    </div>
+                    <button class="btn btn-secondary" id="refreshOrders" type="button">
+                        Refresh Orders
+                    </button>
+                </div>
+
+                <div class="notice warning">
+                    Your current checkout flow opens WhatsApp. Unless checkout also
+                    saves an order record locally, orders sent through WhatsApp will
+                    not appear here automatically.
+                </div>
+
+                <section class="panel">
+                    <div class="panel-heading">
+                        <h2>Order Records</h2>
+                        <select id="orderStatusFilter" aria-label="Filter orders by status">
+                            <option value="all">All statuses</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Items</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Update Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody"></tbody>
+                        </table>
+                    </div>
+                    <p id="ordersEmptyMessage" class="empty-message hidden">
+                        No local orders found.
+                    </p>
+                </section>
+            </section>
+
+            <section class="admin-section" id="services">
+                <div class="page-heading">
+                    <div>
+                        <p class="eyebrow">BUSINESS SERVICES</p>
+                        <h1>Services</h1>
+                        <p class="muted">Information about services offered by Softina.</p>
+                    </div>
+                </div>
+
+                <div class="notice">
+                    Your existing service records remain in the current website files.
+                    Service editing and appointment management will be connected in a
+                    later version.
+                </div>
+
+                <div class="service-grid">
+                    <article class="panel">
+                        <h2>Consultation</h2>
+                        <p>Manage consultation enquiries and appointment requests in a future backend.</p>
+                    </article>
+                    <article class="panel">
+                        <h2>Health & Lifestyle</h2>
+                        <p>Service information and customer requests.</p>
+                    </article>
+                    <article class="panel">
+                        <h2>Academy & Research</h2>
+                        <p>Training, research and educational service enquiries.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="admin-section" id="settings">
+                <div class="page-heading">
+                    <div>
+                        <p class="eyebrow">CONFIGURATION</p>
+                        <h1>Settings</h1>
+                        <p class="muted">Basic dashboard information.</p>
+                    </div>
+                </div>
+
+                <section class="panel">
+                    <h2>Business Contacts</h2>
+                    <p>Main phone: <a href="tel:07036270880">07036270880</a></p>
+                    <p>Contact: <a href="tel:09030406251">09030406251</a></p>
+                    <p>Contact: <a href="tel:09066629790">09066629790</a></p>
+                    <p class="muted">
+                        These details are displayed for reference. Editing them here
+                        is not connected to the public website.
+                    </p>
+                </section>
+
+                <section class="panel">
+                    <h2>Local Prototype Data</h2>
+                    <p>Product records use browser localStorage. Orders are read from
+                       the local <code>softinaOrders</code> key if that key exists.</p>
+                    <button id="exportProducts" class="btn btn-secondary" type="button">
+                        Export Product Records (JSON)
+                    </button>
+                    <p id="settingsMessage" class="form-message" role="status"></p>
+                </section>
+            </section>
+
+            <footer class="admin-footer">
+                © <span id="currentYear"></span> Softina Natural Ventures
+            </footer>
+        </main>
+    </div>
+
+    <script src="js/admin-dashboard.js"></script>
+</body>
+</html>
