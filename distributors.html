@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+<html lang="ha">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Softina Distributors | Softina Natural Ventures</title>
+    <meta name="description"
+          content="Nemo masu rarraba kayayyakin Softina Natural Ventures a Najeriya.">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #243329;
+            background: #f5f8f4;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #14532d;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+        }
+
+        nav {
+            background: #ffffff;
+            padding: 14px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: 0 2px 8px #00000010;
+        }
+
+        nav a {
+            color: #14532d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #c58b19;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 45px 20px;
+            background: #e5f2e5;
+        }
+
+        .hero h2 {
+            color: #14532d;
+            font-size: 30px;
+            margin: 0 0 10px;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .container {
+            width: min(1100px, 92%);
+            margin: 30px auto;
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #00000008;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5cc;
+            border-radius: 7px;
+            background: white;
+            font-size: 15px;
+        }
+
+        .results-heading {
+            margin: 28px 0 15px;
+        }
+
+        #distributorList {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px;
+        }
+
+        .distributor-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e0e9df;
+        }
+
+        .distributor-card h3 {
+            color: #14532d;
+            margin-top: 0;
+        }
+
+        .distributor-card p {
+            margin: 8px 0;
+            overflow-wrap: anywhere;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #e0f2e5;
+            color: #14532d;
+            font-size: 13px;
+        }
+
+        .empty-state {
+            background: white;
+            text-align: center;
+            padding: 35px 20px;
+            border-radius: 12px;
+            grid-column: 1 / -1;
+        }
+
+        .empty-state i {
+            font-size: 38px;
+            color: #6b8d72;
+        }
+
+        .contact {
+            margin-top: 30px;
+            padding: 25px;
+            background: #14532d;
+            color: white;
+            text-align: center;
+            border-radius: 12px;
+        }
+
+        .contact a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 11px 18px;
+            background: white;
+            color: #14532d;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer {
+            margin-top: 40px;
+            background: #102d1b;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer a {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Softina Natural Ventures</h1>
+    <p>Masu Rarraba Kayayyakin Softina</p>
+</header>
+
+<nav aria-label="Babban menu">
+    <a href="index.html">
+        <i class="fas fa-home"></i> Home
+    </a>
+    <a href="products.html">
+        <i class="fas fa-box"></i> Products
+    </a>
+    <a href="distributors.html">
+        <i class="fas fa-truck"></i> Distributors
+    </a>
+    <a href="cart.html">
+        <i class="fas fa-shopping-cart"></i> Cart
+    </a>
+</nav>
+
+<section class="hero">
+    <h2>Nemo Distributor a Yankinku</h2>
+    <p>
+        Wannan shafi zai taimaka maka samun masu rarraba
+        kayayyakin Softina Natural Ventures a jihohin Najeriya.
+        Ana tattara bayanan distributors domin sabunta wannan shafi.
+    </p>
+</section>
+
+<main class="container">
+
+    <section class="filters" aria-label="Neman distributor">
+        <div>
+            <label for="stateFilter">Zaɓi Jiha / FCT</label>
+            <select id="stateFilter">
+                <option value="">Dukkan jihohi</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="lgaFilter">Zaɓi LGA</label>
+            <select id="lgaFilter">
+                <option value="">Dukkan LGAs</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="searchFilter">Neman suna ko adireshi</label>
+            <input
+                type="search"
+                id="searchFilter"
+                placeholder="Rubuta suna ko adireshi..."
+            >
+        </div>
+    </section>
+
+    <h2 class="results-heading">Distributors ɗinmu</h2>
+
+    <section id="distributorList" aria-live="polite">
+        <div class="empty-state">
+            <i class="fas fa-map-marked-alt"></i>
+            <h3>Ana Tattara Bayanai</h3>
+            <p>
+                Har yanzu ba a saka ingantattun bayanan
+                distributors a wannan shafi ba. Za a sabunta
+                bayanan da zarar an kammala tattarawa da tantancewa.
+            </p>
+        </div>
+    </section>
+
+    <section class="contact">
+        <h2>Kana son zama Distributor?</h2>
+        <p>
+            Idan kana son rarraba kayayyakin Softina a jiharka
+            ko LGA ɗinka, tuntuɓi kamfanin domin samun bayani
+            kan sharuɗɗa da tsarin rajista.
+        </p>
+        <!-- Saka lambar WhatsApp ta hukuma idan an tabbatar da ita. -->
+        <a href="index.html#contact">
+            <i class="fas fa-envelope"></i> Tuntuɓe Mu
+        </a>
+    </section>
+
+</main>
+
+<footer>
+    <p>
+        &copy; <span id="currentYear"></span>
+        Softina Natural Ventures. All rights reserved.
+    </p>
+    <a href="index.html">Komawa Babban Shafi</a>
+</footer>
+
+<script>
+"use strict";
+
+/*
+ * Za a cika wannan jerin bayan tattara bayanan distributors.
+ * Kada a saka bayanan da ba a tabbatar da su ba.
+ */
+const SOFTINA_DISTRIBUTORS = [];
+
+const NIGERIAN_STATES = [
+    "Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi",
+    "Bayelsa", "Benue", "Borno", "Cross River", "Delta",
+    "Ebonyi", "Edo", "Ekiti", "Enugu", "FCT",
+    "Gombe", "Imo", "Jigawa", "Kaduna", "Kano",
+    "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos",
+    "Nasarawa", "Niger", "Ogun", "Ondo", "Osun",
+    "Oyo", "Plateau", "Rivers", "Sokoto", "Taraba",
+    "Yobe", "Zamfara"
+];
+
+const stateFilter = document.getElementById("stateFilter");
+const lgaFilter = document.getElementById("lgaFilter");
+const searchFilter = document.getElementById("searchFilter");
+const distributorList = document.getElementById("distributorList");
+
+document.getElementById("currentYear").textContent =
+    new Date().getFullYear();
+
+NIGERIAN_STATES.forEach(function (state) {
+    const option = document.createElement("option");
+    option.value = state;
+    option.textContent = state;
+    stateFilter.appendChild(option);
+});
+
+function updateLGAs() {
+    const selectedState = stateFilter.value;
+    const previousLGA = lgaFilter.value;
+
+    lgaFilter.innerHTML = '<option value="">Dukkan LGAs</option>';
+
+    const lgas = [
+        ...new Set(
+            SOFTINA_DISTRIBUTORS
+                .filter(function (item) {
+                    return !selectedState || item.state === selectedState;
+                })
+                .map(function (item) {
+                    return item.lga;
+                })
+                .filter(Boolean)
+        )
+    ];
+
+    lgas.sort().forEach(function (lga) {
+        const option = document.createElement("option");
+        option.value = lga;
+        option.textContent = lga;
+        lgaFilter.appendChild(option);
+    });
+
+    if (lgas.includes(previousLGA)) {
+        lgaFilter.value = previousLGA;
+    }
+}
+
+function renderDistributors() {
+    const selectedState = stateFilter.value;
+    const selectedLGA = lgaFilter.value;
+    const query = searchFilter.value.trim().toLowerCase();
+
+    const results = SOFTINA_DISTRIBUTORS.filter(function (item) {
+        const matchesState =
+            !selectedState || item.state === selectedState;
+
+        const matchesLGA =
+            !selectedLGA || item.lga === selectedLGA;
+
+        const searchableText = [
+            item.name,
+            item.state,
+            item.lga,
+            item.address
+        ].join(" ").toLowerCase();
+
+        return matchesState &&
+            matchesLGA &&
+            searchableText.includes(query);
+    });
+
+    distributorList.replaceChildren();
+
+    if (results.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+
+        const icon = document.createElement("i");
+        icon.className = "fas fa-search-location";
+
+        const heading = document.createElement("h3");
+        heading.textContent = SOFTINA_DISTRIBUTORS.length === 0
+            ? "Ana Tattara Bayanai"
+            : "Ba a Samu Distributor ba";
+
+        const message = document.createElement("p");
+        message.textContent = SOFTINA_DISTRIBUTORS.length === 0
+            ? "Za a saka bayanan distributors bayan an tattara kuma an tantance su."
+            : "Ba a samu distributor da ya dace da zaɓinka ba. Gwada wani yanki.";
+
+        empty.append(icon, heading, message);
+        distributorList.appendChild(empty);
+        return;
+    }
+
+    results.forEach(function (item) {
+        const card = document.createElement("article");
+        card.className = "distributor-card";
+
+        const name = document.createElement("h3");
+        name.textContent = item.name;
+
+        const state = document.createElement("p");
+        state.textContent = "Jiha: " + item.state;
+
+        const lga = document.createElement("p");
+        lga.textContent = "LGA: " + item.lga;
+
+        const address = document.createElement("p");
+        address.textContent = "Adireshi: " + (item.address || "Ba a saka ba");
+
+        const status = document.createElement("span");
+        status.className = "status";
+        status.textContent = "An tantance bayanai";
+
+        card.append(name, state, lga, address, status);
+
+        if (item.phone) {
+            const phone = document.createElement("p");
+            phone.textContent = "Waya: " + item.phone;
+            card.appendChild(phone);
+        }
+
+        distributorList.appendChild(card);
+    });
+}
+
+stateFilter.addEventListener("change", function () {
+    updateLGAs();
+    renderDistributors();
+});
+
+lgaFilter.addEventListener("change", renderDistributors);
+searchFilter.addEventListener("input", renderDistributors);
+
+updateLGAs();
+renderDistributors();
+</script>
+
+</body>
+</html>
