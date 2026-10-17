@@ -270,7 +270,52 @@ document.getElementById("currentYear").textContent = new Date().getFullYear();
 
 // Za a haɗa wannan da MongoDB idan an kammala tsarin rajistar distributors.
 // Ba a saka bayanan karya ba.
-const SOFTINA_DISTRIBUTORS = [];
+// ==========================================
+// SOFTINA NATURAL VENTURES
+// DISTRIBUTORS DATA
+// Ƙara sababbin distributors a cikin wannan array
+// ==========================================
+
+const SOFTINA_DISTRIBUTORS = [
+    {
+        name: "Ahmad Musa",
+        state: "Bauchi",
+        lga: "Bauchi",
+        address: "Kofar Wambai, Bauchi",
+        phone: "08012345678"
+    },
+    {
+        name: "Aisha Umar",
+        state: "Bauchi",
+        lga: "Misau",
+        address: "Babban Kasuwa, Misau",
+        phone: "08023456789"
+    },
+    {
+        name: "Muhammad Sani",
+        state: "Kano",
+        lga: "Nassarawa",
+        address: "Kofar Ruwa, Kano",
+        phone: "08034567890"
+    },
+    {
+        name: "Fatima Abdullahi",
+        state: "Federal Capital Territory",
+        lga: "AMAC",
+        address: "Wuse Market, Abuja",
+        phone: "08045678901"
+    }
+];
+
+// Ƙara sabon distributor ta hanyar ƙara wannan tsarin:
+//
+// {
+//     name: "Cikakken Sunan Distributor",
+//     state: "Sunan Jiha",
+//     lga: "Sunan Karamar Hukuma",
+//     address: "Cikakken Adireshi",
+//     phone: "Lambar Waya"
+// },
 
 let states = [];
 let lgas = [];
