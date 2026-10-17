@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Softina Distributors | Softina Natural Ventures</title>
+    <title>Distributors | Softina Natural Ventures</title>
     <meta name="description"
           content="Nemo masu rarraba kayayyakin Softina Natural Ventures a Najeriya.">
 
@@ -13,9 +13,7 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
@@ -28,16 +26,14 @@
         header {
             background: #14532d;
             color: white;
-            padding: 20px;
+            padding: 22px 15px;
             text-align: center;
         }
 
-        header h1 {
-            margin: 0 0 8px;
-        }
+        header h1 { margin: 0; }
 
         nav {
-            background: #ffffff;
+            background: white;
             padding: 14px;
             display: flex;
             justify-content: center;
@@ -52,14 +48,10 @@
             font-weight: bold;
         }
 
-        nav a:hover {
-            color: #c58b19;
-        }
-
         .hero {
-            text-align: center;
-            padding: 45px 20px;
             background: #e5f2e5;
+            text-align: center;
+            padding: 40px 18px;
         }
 
         .hero h2 {
@@ -68,30 +60,25 @@
             margin: 0 0 10px;
         }
 
-        .hero p {
-            max-width: 650px;
-            margin: auto;
-        }
-
         .container {
-            width: min(1100px, 92%);
+            width: min(1050px, 92%);
             margin: 30px auto;
         }
 
         .filters {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
-            background: white;
+            gap: 18px;
             padding: 22px;
+            background: white;
             border-radius: 12px;
             box-shadow: 0 3px 12px #00000008;
         }
 
         label {
             display: block;
-            font-weight: bold;
             margin-bottom: 7px;
+            font-weight: bold;
         }
 
         select, input {
@@ -103,9 +90,25 @@
             font-size: 15px;
         }
 
-        .results-heading {
-            margin: 28px 0 15px;
+        select:disabled {
+            background: #eeeeee;
+            cursor: not-allowed;
         }
+
+        .message {
+            margin: 18px 0;
+            padding: 14px;
+            border-radius: 8px;
+            background: #fff8df;
+            color: #6b5100;
+        }
+
+        .message.error {
+            background: #ffeded;
+            color: #9b1c1c;
+        }
+
+        .results-heading { margin-top: 28px; }
 
         #distributorList {
             display: grid;
@@ -113,37 +116,17 @@
             gap: 18px;
         }
 
-        .distributor-card {
-            background: white;
-            padding: 20px;
+        .card, .empty-state {
+            padding: 22px;
             border-radius: 12px;
+            background: white;
             border: 1px solid #e0e9df;
         }
 
-        .distributor-card h3 {
-            color: #14532d;
-            margin-top: 0;
-        }
-
-        .distributor-card p {
-            margin: 8px 0;
-            overflow-wrap: anywhere;
-        }
-
-        .status {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 20px;
-            background: #e0f2e5;
-            color: #14532d;
-            font-size: 13px;
-        }
+        .card h3 { color: #14532d; margin-top: 0; }
 
         .empty-state {
-            background: white;
             text-align: center;
-            padding: 35px 20px;
-            border-radius: 12px;
             grid-column: 1 / -1;
         }
 
@@ -174,75 +157,69 @@
 
         footer {
             margin-top: 40px;
-            background: #102d1b;
-            color: white;
             padding: 20px;
             text-align: center;
+            background: #102d1b;
+            color: white;
         }
 
-        footer a {
-            color: white;
+        footer a { color: white; }
+
+        @media (max-width: 500px) {
+            .hero h2 { font-size: 24px; }
+            nav { gap: 12px; }
         }
     </style>
 </head>
 
 <body>
-
 <header>
     <h1>Softina Natural Ventures</h1>
     <p>Masu Rarraba Kayayyakin Softina</p>
 </header>
 
 <nav aria-label="Babban menu">
-    <a href="index.html">
-        <i class="fas fa-home"></i> Home
-    </a>
-    <a href="products.html">
-        <i class="fas fa-box"></i> Products
-    </a>
-    <a href="distributors.html">
-        <i class="fas fa-truck"></i> Distributors
-    </a>
-    <a href="cart.html">
-        <i class="fas fa-shopping-cart"></i> Cart
-    </a>
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="products.html"><i class="fas fa-box"></i> Products</a>
+    <a href="distributors.html"><i class="fas fa-truck"></i> Distributors</a>
+    <a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart</a>
 </nav>
 
 <section class="hero">
     <h2>Nemo Distributor a Yankinku</h2>
     <p>
-        Wannan shafi zai taimaka maka samun masu rarraba
-        kayayyakin Softina Natural Ventures a jihohin Najeriya.
-        Ana tattara bayanan distributors domin sabunta wannan shafi.
+        Zaɓi jiha da karamar hukuma domin bincika masu rarraba
+        kayayyakin Softina Natural Ventures.
     </p>
 </section>
 
 <main class="container">
-
-    <section class="filters" aria-label="Neman distributor">
+    <section class="filters">
         <div>
-            <label for="stateFilter">Zaɓi Jiha / FCT</label>
-            <select id="stateFilter">
-                <option value="">Dukkan jihohi</option>
+            <label for="stateFilter">Jiha / FCT</label>
+            <select id="stateFilter" disabled>
+                <option value="">Ana ɗauko jihohi...</option>
             </select>
         </div>
 
         <div>
-            <label for="lgaFilter">Zaɓi LGA</label>
-            <select id="lgaFilter">
-                <option value="">Dukkan LGAs</option>
+            <label for="lgaFilter">Karamar Hukuma (LGA)</label>
+            <select id="lgaFilter" disabled>
+                <option value="">Da farko zaɓi jiha</option>
             </select>
         </div>
 
         <div>
-            <label for="searchFilter">Neman suna ko adireshi</label>
-            <input
-                type="search"
-                id="searchFilter"
-                placeholder="Rubuta suna ko adireshi..."
-            >
+            <label for="searchFilter">Neman distributor</label>
+            <input id="searchFilter" type="search"
+                   placeholder="Suna ko adireshi..."
+                   disabled>
         </div>
     </section>
+
+    <div id="statusMessage" class="message" role="status">
+        Ana haɗawa da bayanan jihohi da ƙananan hukumomi...
+    </div>
 
     <h2 class="results-heading">Distributors ɗinmu</h2>
 
@@ -251,9 +228,8 @@
             <i class="fas fa-map-marked-alt"></i>
             <h3>Ana Tattara Bayanai</h3>
             <p>
-                Har yanzu ba a saka ingantattun bayanan
-                distributors a wannan shafi ba. Za a sabunta
-                bayanan da zarar an kammala tattarawa da tantancewa.
+                Ba a saka bayanan distributors ba tukuna.
+                Za a nuna su bayan an tattara kuma an tantance su.
             </p>
         </div>
     </section>
@@ -261,16 +237,13 @@
     <section class="contact">
         <h2>Kana son zama Distributor?</h2>
         <p>
-            Idan kana son rarraba kayayyakin Softina a jiharka
-            ko LGA ɗinka, tuntuɓi kamfanin domin samun bayani
-            kan sharuɗɗa da tsarin rajista.
+            Tuntuɓi Softina domin bayani kan sharuɗɗan zama
+            distributor da yadda ake yin rajista.
         </p>
-        <!-- Saka lambar WhatsApp ta hukuma idan an tabbatar da ita. -->
         <a href="index.html#contact">
             <i class="fas fa-envelope"></i> Tuntuɓe Mu
         </a>
     </section>
-
 </main>
 
 <footer>
@@ -284,67 +257,188 @@
 <script>
 "use strict";
 
-/*
- * Za a cika wannan jerin bayan tattara bayanan distributors.
- * Kada a saka bayanan da ba a tabbatar da su ba.
- */
-const SOFTINA_DISTRIBUTORS = [];
-
-const NIGERIAN_STATES = [
-    "Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi",
-    "Bayelsa", "Benue", "Borno", "Cross River", "Delta",
-    "Ebonyi", "Edo", "Ekiti", "Enugu", "FCT",
-    "Gombe", "Imo", "Jigawa", "Kaduna", "Kano",
-    "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos",
-    "Nasarawa", "Niger", "Ogun", "Ondo", "Osun",
-    "Oyo", "Plateau", "Rivers", "Sokoto", "Taraba",
-    "Yobe", "Zamfara"
-];
+// Cikakken bayanan Najeriya daga Open Admin Data
+const API_URL = "https://api.openadmindata.org/api/v1/countries/ng.json";
 
 const stateFilter = document.getElementById("stateFilter");
 const lgaFilter = document.getElementById("lgaFilter");
 const searchFilter = document.getElementById("searchFilter");
+const statusMessage = document.getElementById("statusMessage");
 const distributorList = document.getElementById("distributorList");
 
-document.getElementById("currentYear").textContent =
-    new Date().getFullYear();
+document.getElementById("currentYear").textContent = new Date().getFullYear();
 
-NIGERIAN_STATES.forEach(function (state) {
-    const option = document.createElement("option");
-    option.value = state;
-    option.textContent = state;
-    stateFilter.appendChild(option);
-});
+// Za a haɗa wannan da MongoDB idan an kammala tsarin rajistar distributors.
+// Ba a saka bayanan karya ba.
+const SOFTINA_DISTRIBUTORS = [];
+
+let states = [];
+let lgas = [];
+
+function normalize(value) {
+    return String(value ?? "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "");
+}
+
+function showError(message) {
+    statusMessage.textContent = message;
+    statusMessage.className = "message error";
+}
+
+function findArray(payload, keys) {
+    if (Array.isArray(payload)) return payload;
+    if (!payload || typeof payload !== "object") return [];
+
+    for (const key of keys) {
+        if (Array.isArray(payload[key])) return payload[key];
+    }
+
+    // Wasu APIs suna saka bayanai a cikin data ko result.
+    for (const wrapper of [payload.data, payload.result, payload.results, payload.country]) {
+        if (Array.isArray(wrapper)) {
+            const found = findArray(wrapper, keys);
+            if (found.length) return found;
+        } else if (wrapper && typeof wrapper === "object") {
+            for (const key of keys) {
+                if (Array.isArray(wrapper[key])) return wrapper[key];
+            }
+        }
+    }
+    return [];
+}
+
+function getStateName(item) {
+    return item?.name_en || item?.name || item?.state_name ||
+           item?.stateName || item?.parent_name_en || item?.title || "";
+}
+
+function getLgaName(item) {
+    return item?.name_en || item?.name || item?.lga_name ||
+           item?.lgaName || item?.title || "";
+}
+
+function getParentState(item) {
+    return item?.parent_name_en || item?.state_name ||
+           item?.stateName || item?.state || item?.parent_name || "";
+}
+
+function getParentId(item) {
+    return item?.parent_id ?? item?.state_id ?? item?.stateId ??
+           item?.parentId ?? item?.state?.id ?? null;
+}
+
+function getSelectedStateRecord() {
+    return states.find(state => normalize(getStateName(state)) === normalize(stateFilter.value));
+}
+
+async function loadLocations() {
+    stateFilter.disabled = true;
+    lgaFilter.disabled = true;
+    searchFilter.disabled = true;
+    stateFilter.replaceChildren(new Option("Ana ɗauko jihohi...", ""));
+    lgaFilter.replaceChildren(new Option("Da farko zaɓi jiha", ""));
+
+    try {
+        const response = await fetch(API_URL, {
+            method: "GET",
+            headers: { "Accept": "application/json" },
+            cache: "no-cache"
+        });
+
+        if (!response.ok) {
+            throw new Error("API ta dawo da HTTP " + response.status);
+        }
+
+        const payload = await response.json();
+        states = findArray(payload, ["state", "states", "State", "States"]);
+        lgas = findArray(payload, ["lga", "lgas", "LGA", "LGAs", "local_government_areas"]);
+
+        // Idan API ta dawo da bayanan a wani tsari, kada a ɓoye ainihin kuskuren.
+        if (!states.length || !lgas.length) {
+            console.error("Open Admin Data response structure:", payload);
+            throw new Error("Ba a gane tsarin bayanan jihohi/LGAs da API ta dawo da su ba.");
+        }
+
+        states = states.filter(item => getStateName(item));
+        lgas = lgas.filter(item => getLgaName(item));
+
+        states.sort((a, b) => getStateName(a).localeCompare(getStateName(b)));
+        stateFilter.replaceChildren(new Option("Zaɓi jiha", ""));
+
+        states.forEach(state => {
+            const name = getStateName(state);
+            stateFilter.add(new Option(name, name));
+        });
+
+        stateFilter.disabled = false;
+        searchFilter.disabled = false;
+        statusMessage.className = "message";
+        statusMessage.textContent = `An ɗauko jihohi ${states.length} da LGAs ${lgas.length}. Zaɓi jiha domin ganin ƙananan hukumominta.`;
+
+    } catch (error) {
+        console.error("Location data error:", error);
+        showError("Ba a iya ɗauko jerin jihohi da LGAs daga API ba. Ka tabbatar kana da intanet, sannan ka danna maɓallin Sake Gwada da ke ƙasa.");
+
+        const retryButton = document.createElement("button");
+        retryButton.type = "button";
+        retryButton.textContent = "Sake Gwada";
+        retryButton.style.cssText = "margin-left:10px;padding:8px 12px;border:0;border-radius:6px;background:#14532d;color:white;cursor:pointer";
+        retryButton.addEventListener("click", loadLocations, { once: true });
+        statusMessage.appendChild(document.createTextNode(" "));
+        statusMessage.appendChild(retryButton);
+    }
+}
 
 function updateLGAs() {
-    const selectedState = stateFilter.value;
-    const previousLGA = lgaFilter.value;
+    const selectedState = getSelectedStateRecord();
+    lgaFilter.replaceChildren(new Option("Zaɓi karamar hukuma", ""));
 
-    lgaFilter.innerHTML = '<option value="">Dukkan LGAs</option>';
+    if (!selectedState) {
+        lgaFilter.disabled = true;
+        renderDistributors();
+        return;
+    }
 
-    const lgas = [
-        ...new Set(
-            SOFTINA_DISTRIBUTORS
-                .filter(function (item) {
-                    return !selectedState || item.state === selectedState;
-                })
-                .map(function (item) {
-                    return item.lga;
-                })
-                .filter(Boolean)
-        )
-    ];
+    const stateId = selectedState.id ?? selectedState.state_id ?? selectedState.stateId;
+    const stateName = getStateName(selectedState);
 
-    lgas.sort().forEach(function (lga) {
-        const option = document.createElement("option");
-        option.value = lga;
-        option.textContent = lga;
-        lgaFilter.appendChild(option);
+    let matchingLGAs = lgas.filter(item => {
+        const parentId = getParentId(item);
+        if (parentId !== null && stateId !== undefined && stateId !== null) {
+            if (String(parentId) === String(stateId)) return true;
+            // Ids sun bambanta? Sai a gwada sunan jiha a ƙasa.
+        }
+        return normalize(getParentState(item)) === normalize(stateName);
     });
 
-    if (lgas.includes(previousLGA)) {
-        lgaFilter.value = previousLGA;
+    // Wasu bayanan suna amfani da parent_name_en ko parent_name maimakon parent_id.
+    if (!matchingLGAs.length) {
+        matchingLGAs = lgas.filter(item =>
+            normalize(getParentState(item)) === normalize(stateName)
+        );
     }
+
+    matchingLGAs.sort((a, b) => getLgaName(a).localeCompare(getLgaName(b)));
+    matchingLGAs.forEach(item => {
+        const name = getLgaName(item);
+        if (name) lgaFilter.add(new Option(name, name));
+    });
+
+    lgaFilter.disabled = matchingLGAs.length === 0;
+    if (!matchingLGAs.length) {
+        lgaFilter.replaceChildren(new Option("Ba a samu LGAs na wannan jiha ba", ""));
+    }
+
+    statusMessage.className = matchingLGAs.length ? "message" : "message error";
+    statusMessage.textContent = matchingLGAs.length
+        ? `${stateName}: an samu ƙananan hukumomi ${matchingLGAs.length}.`
+        : `Ba a iya daidaita LGAs da jihar ${stateName} ba. Duba Console (F12) domin ganin tsarin bayanan API.`;
+
+    renderDistributors();
 }
 
 function renderDistributors() {
@@ -352,92 +446,54 @@ function renderDistributors() {
     const selectedLGA = lgaFilter.value;
     const query = searchFilter.value.trim().toLowerCase();
 
-    const results = SOFTINA_DISTRIBUTORS.filter(function (item) {
-        const matchesState =
-            !selectedState || item.state === selectedState;
-
-        const matchesLGA =
-            !selectedLGA || item.lga === selectedLGA;
-
-        const searchableText = [
-            item.name,
-            item.state,
-            item.lga,
-            item.address
-        ].join(" ").toLowerCase();
-
-        return matchesState &&
-            matchesLGA &&
-            searchableText.includes(query);
+    const results = SOFTINA_DISTRIBUTORS.filter(item => {
+        const matchesState = !selectedState || normalize(item.state) === normalize(selectedState);
+        const matchesLGA = !selectedLGA || normalize(item.lga) === normalize(selectedLGA);
+        const text = [item.name, item.state, item.lga, item.address, item.phone].join(" ").toLowerCase();
+        return matchesState && matchesLGA && text.includes(query);
     });
 
     distributorList.replaceChildren();
-
-    if (results.length === 0) {
-        const empty = document.createElement("div");
-        empty.className = "empty-state";
-
+    if (!results.length) {
+        const box = document.createElement("div");
+        box.className = "empty-state";
         const icon = document.createElement("i");
-        icon.className = "fas fa-search-location";
-
-        const heading = document.createElement("h3");
-        heading.textContent = SOFTINA_DISTRIBUTORS.length === 0
-            ? "Ana Tattara Bayanai"
-            : "Ba a Samu Distributor ba";
-
-        const message = document.createElement("p");
-        message.textContent = SOFTINA_DISTRIBUTORS.length === 0
-            ? "Za a saka bayanan distributors bayan an tattara kuma an tantance su."
-            : "Ba a samu distributor da ya dace da zaɓinka ba. Gwada wani yanki.";
-
-        empty.append(icon, heading, message);
-        distributorList.appendChild(empty);
+        icon.className = "fas fa-map-marker-alt";
+        const title = document.createElement("h3");
+        title.textContent = "Ba a samu Distributor ba tukuna";
+        const paragraph = document.createElement("p");
+        paragraph.textContent = "Ana tattara bayanan distributors. Za a nuna ingantattun bayanai bayan an kammala tantancewa.";
+        box.append(icon, title, paragraph);
+        distributorList.appendChild(box);
         return;
     }
 
-    results.forEach(function (item) {
+    results.forEach(item => {
         const card = document.createElement("article");
-        card.className = "distributor-card";
-
-        const name = document.createElement("h3");
-        name.textContent = item.name;
-
+        card.className = "card";
+        const title = document.createElement("h3");
+        title.textContent = item.name;
         const state = document.createElement("p");
         state.textContent = "Jiha: " + item.state;
-
         const lga = document.createElement("p");
         lga.textContent = "LGA: " + item.lga;
-
         const address = document.createElement("p");
         address.textContent = "Adireshi: " + (item.address || "Ba a saka ba");
-
-        const status = document.createElement("span");
-        status.className = "status";
-        status.textContent = "An tantance bayanai";
-
-        card.append(name, state, lga, address, status);
-
+        card.append(title, state, lga, address);
         if (item.phone) {
             const phone = document.createElement("p");
             phone.textContent = "Waya: " + item.phone;
             card.appendChild(phone);
         }
-
         distributorList.appendChild(card);
     });
 }
 
-stateFilter.addEventListener("change", function () {
-    updateLGAs();
-    renderDistributors();
-});
-
+stateFilter.addEventListener("change", updateLGAs);
 lgaFilter.addEventListener("change", renderDistributors);
 searchFilter.addEventListener("input", renderDistributors);
 
-updateLGAs();
-renderDistributors();
+loadLocations();
 </script>
-
 </body>
 </html>
