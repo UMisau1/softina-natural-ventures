@@ -252,6 +252,27 @@ const SOFTINA_PRODUCTS = [
         featured: true,
         isNew: true,
         available: true
+    },
+
+    /* ==========================================
+       KAYAYYAKI NA 14
+       ========================================== */
+    {
+        id: 14,
+        name: "Herbal Blend",
+        type: "product",
+        category: "Natural Support for Kidney Infection",
+        categoryName: "Maganin Kidney Infection",
+        shortDescription: " Maganin kidney infection, sannan zaku iya hada shi da na capsule dukka amma ga wanda basu da karfi sosai zasu iya sayen na powder din kawai su bar na capsule, amma idan kana da hali ka sayi dukka biyun zaifi insha Allah. Sannan Abu Mai muhimmanci akan kidney infection shine dole sai kun Kiyaye dokokin da zamu baku a rubuce ku masu wannan cutar idan har ba zaku iya kiyaye wa ba dan Allah karma ka wahalar da kanka ka saya, bin doka shine ainihin mafita ga wannan cutar da kuma hadawa da maganin daya dace. Dukka dana powder din dana Capsule gaba daya 10k ne, Wanda bashida karfi ya sayi na powder kadai kawai.",
+        price: 10000,
+        oldPrice: null,
+        discount: null,
+        size: "",
+        stockStatus: "Akwai",
+        image: "images/products/product-14.jpg",
+        featured: true,
+        isNew: true,
+        available: true
     }
 ];
 
