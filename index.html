@@ -1041,7 +1041,499 @@
 
 </section>
 
+<!-- SOFTINA NATURE: HEALTH AWARENESS SLIDER START -->
+<style>
+  #sn-health-slider,
+  #sn-health-slider * {
+    box-sizing: border-box;
+  }
 
+  #sn-health-slider {
+    --sn-green: #16834a;
+    --sn-dark: #103b2b;
+    --sn-white: #fff;
+
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 25px auto;
+    overflow: hidden;
+    border-radius: 22px;
+    background: #103b2b;
+    color: var(--sn-white);
+    font-family: inherit;
+    isolation: isolate;
+  }
+
+  #sn-health-slider .sn-track {
+    position: relative;
+    width: 100%;
+  }
+
+  #sn-health-slider .sn-slide {
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    min-height: 350px;
+    animation: snFadeIn .45s ease;
+  }
+
+  #sn-health-slider .sn-slide.sn-active {
+    display: grid;
+  }
+
+  #sn-health-slider .sn-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: clamp(22px, 4vw, 48px);
+    background: linear-gradient(135deg, #103b2b, #176b43);
+  }
+
+  #sn-health-slider .sn-label {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 7px 13px;
+    border: 1px solid rgba(255,255,255,.4);
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+  }
+
+  #sn-health-slider .sn-content h3 {
+    margin: 0 0 14px;
+    color: #fff;
+    font-size: clamp(23px, 3vw, 36px);
+    line-height: 1.2;
+    font-weight: 800;
+  }
+
+  #sn-health-slider .sn-content p {
+    margin: 0 0 20px;
+    color: rgba(255,255,255,.92);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  #sn-health-slider .sn-image {
+    position: relative;
+    min-height: 350px;
+    overflow: hidden;
+    background: #dce9df;
+  }
+
+  #sn-health-slider .sn-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 350px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #sn-health-slider .sn-read-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 18px;
+    border: 1px solid rgba(255,255,255,.7);
+    border-radius: 30px;
+    background: #fff;
+    color: #145a35;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .2s ease;
+  }
+
+  #sn-health-slider .sn-read-btn:hover {
+    background: #e8f5ec;
+    transform: translateY(-2px);
+  }
+
+  #sn-health-slider .sn-controls {
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 40px;
+    background: rgba(8, 32, 21, .85);
+    backdrop-filter: blur(8px);
+  }
+
+  #sn-health-slider .sn-arrow,
+  #sn-health-slider .sn-dot,
+  #sn-health-slider .sn-audio {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    min-height: 34px;
+    border: 1px solid rgba(255,255,255,.45);
+    border-radius: 50%;
+    background: transparent;
+    color: #fff;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  #sn-health-slider .sn-arrow:hover,
+  #sn-health-slider .sn-audio:hover {
+    background: rgba(255,255,255,.18);
+  }
+
+  #sn-health-slider .sn-dots {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  #sn-health-slider .sn-dot {
+    min-width: 10px;
+    min-height: 10px;
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: 0;
+    background: rgba(255,255,255,.5);
+  }
+
+  #sn-health-slider .sn-dot.sn-current {
+    width: 23px;
+    border-radius: 10px;
+    background: #fff;
+  }
+
+  #sn-health-slider .sn-status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @keyframes snFadeIn {
+    from { opacity: .45; }
+    to { opacity: 1; }
+  }
+
+  @media (max-width: 700px) {
+    #sn-health-slider .sn-slide,
+    #sn-health-slider .sn-slide.sn-active {
+      grid-template-columns: 1fr;
+    }
+
+    #sn-health-slider .sn-image {
+      order: 1;
+      min-height: 220px;
+    }
+
+    #sn-health-slider .sn-image img {
+      min-height: 220px;
+      max-height: 280px;
+    }
+
+    #sn-health-slider .sn-content {
+      order: 2;
+      padding: 25px 22px 85px;
+    }
+
+    #sn-health-slider .sn-content h3 {
+      font-size: 25px;
+    }
+
+    #sn-health-slider .sn-content p {
+      font-size: 14px;
+    }
+
+    #sn-health-slider .sn-controls {
+      right: 12px;
+      bottom: 12px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #sn-health-slider *,
+    #sn-health-slider *::before,
+    #sn-health-slider *::after {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+
+<section id="sn-health-slider"
+         aria-label="Softina Nature Health Awareness"
+         aria-roledescription="carousel">
+
+  <div class="sn-track">
+
+    <!-- SLIDE 1: SAFE MEDICINE -->
+    <article class="sn-slide sn-active"
+             aria-roledescription="slide"
+             aria-label="1 na 3">
+
+      <div class="sn-content">
+        <span class="sn-label">Lafiya da Kariya</span>
+
+        <h3>Ka Yi Amfani da Magunguna Cikin Tsaro</h3>
+
+        <p>
+          Ka yi amfani da magani bisa umarnin likita ko ƙwararren
+          ma'aikacin lafiya. Ka duba sunan magani, adadinsa da ranar
+          ƙarewar amfani. Kada ka sha maganin wani ko ka haɗa magunguna
+          ba tare da shawarar ƙwararre ba.
+        </p>
+
+        <button class="sn-read-btn" type="button"
+                data-sn-speak="0">
+          🔊 Saurari Saƙo
+        </button>
+      </div>
+
+      <div class="sn-image">
+        <img
+          src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1000&q=85"
+          alt="Magunguna da kayan kula da lafiya"
+          loading="lazy">
+      </div>
+    </article>
+
+    <!-- SLIDE 2: VACCINATION -->
+    <article class="sn-slide"
+             aria-roledescription="slide"
+             aria-label="2 na 3">
+
+      <div class="sn-content">
+        <span class="sn-label">Rigakafi ga Kowa</span>
+
+        <h3>Rigakafi Yana Taimakawa Kare Lafiya</h3>
+
+        <p>
+          Rigakafi yana taimakawa wajen kare mutane daga wasu
+          cututtuka masu yaɗuwa. Ka tambayi cibiyar lafiya game da
+          alluran da suka dace da kai ko yaranka, da lokacin da ya
+          kamata a karɓe su.
+        </p>
+
+        <button class="sn-read-btn" type="button"
+                data-sn-speak="1">
+          🔊 Saurari Saƙo
+        </button>
+      </div>
+
+      <div class="sn-image">
+        <img
+          src="https://images.unsplash.com/photo-1603398938378-e54eab446dde?auto=format&fit=crop&w=1000&q=85"
+          alt="Kula da lafiya da rigakafi"
+          loading="lazy">
+      </div>
+    </article>
+
+    <!-- SLIDE 3: HEALTHY LIVING -->
+    <article class="sn-slide"
+             aria-roledescription="slide"
+             aria-label="3 na 3">
+
+      <div class="sn-content">
+        <span class="sn-label">Rayuwa Mai Kyau</span>
+
+        <h3>Ka Kare Lafiyarka Kowace Rana</h3>
+
+        <p>
+          Ka riƙa wanke hannu, shan ruwa mai tsafta, cin abinci
+          mai gina jiki da kiyaye tsaftar muhalli. Idan kana da
+          wata alama ta rashin lafiya, ka nemi shawarar ma'aikacin
+          lafiya maimakon dogaro da zato kawai.
+        </p>
+
+        <button class="sn-read-btn" type="button"
+                data-sn-speak="2">
+          🔊 Saurari Saƙo
+        </button>
+      </div>
+
+      <div class="sn-image">
+        <img
+          src="https://images.unsplash.com/photo-1505576399274-565b52d4ac71?auto=format&fit=crop&w=1000&q=85"
+          alt="Abinci mai gina jiki don kula da lafiya"
+          loading="lazy">
+      </div>
+    </article>
+
+  </div>
+
+  <!-- MANUAL CONTROLS -->
+  <div class="sn-controls" aria-label="Sarrafa slides">
+
+    <button class="sn-arrow sn-prev"
+            type="button"
+            aria-label="Slide na baya"
+            title="Na baya">
+      &#10094;
+    </button>
+
+    <div class="sn-dots" aria-label="Zaɓi slide">
+      <button class="sn-dot sn-current"
+              type="button"
+              aria-label="Je zuwa slide na 1"></button>
+      <button class="sn-dot"
+              type="button"
+              aria-label="Je zuwa slide na 2"></button>
+      <button class="sn-dot"
+              type="button"
+              aria-label="Je zuwa slide na 3"></button>
+    </div>
+
+    <button class="sn-arrow sn-next"
+            type="button"
+            aria-label="Slide na gaba"
+            title="Na gaba">
+      &#10095;
+    </button>
+
+    <button class="sn-audio"
+            type="button"
+            aria-label="Dakatar da audio"
+            title="Dakatar da audio">
+      ■
+    </button>
+  </div>
+
+  <div class="sn-status" aria-live="polite"></div>
+</section>
+
+<script>
+(function () {
+  "use strict";
+
+  const root = document.getElementById("sn-health-slider");
+  if (!root || root.dataset.snInitialized === "true") return;
+  root.dataset.snInitialized = "true";
+
+  const slides = Array.from(root.querySelectorAll(".sn-slide"));
+  const dots = Array.from(root.querySelectorAll(".sn-dot"));
+  const prev = root.querySelector(".sn-prev");
+  const next = root.querySelector(".sn-next");
+  const audioStop = root.querySelector(".sn-audio");
+  const status = root.querySelector(".sn-status");
+
+  const messages = [
+    "Ka yi amfani da magani bisa umarnin likita ko ƙwararren ma'aikacin lafiya. Ka duba sunan magani, adadinsa da ranar ƙarewar amfani. Kada ka sha maganin wani ko ka haɗa magunguna ba tare da shawarar ƙwararre ba.",
+    "Rigakafi yana taimakawa wajen kare mutane daga wasu cututtuka masu yaɗuwa. Ka tambayi cibiyar lafiya game da alluran da suka dace da kai ko yaranka.",
+    "Ka riƙa wanke hannu, shan ruwa mai tsafta, cin abinci mai gina jiki da kiyaye tsaftar muhalli."
+  ];
+
+  let current = 0;
+  let timer = null;
+
+  function stopSpeech() {
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
+  }
+
+  function showSlide(index) {
+    current = (index + slides.length) % slides.length;
+
+    slides.forEach((slide, i) => {
+      slide.classList.toggle("sn-active", i === current);
+      slide.setAttribute("aria-hidden", i === current ? "false" : "true");
+    });
+
+    dots.forEach((dot, i) => {
+      dot.classList.toggle("sn-current", i === current);
+      if (i === current) {
+        dot.setAttribute("aria-current", "true");
+      } else {
+        dot.removeAttribute("aria-current");
+      }
+    });
+
+    if (status) {
+      status.textContent = "Slide na " + (current + 1) +
+        " cikin " + slides.length;
+    }
+
+    stopSpeech();
+  }
+
+  // Canza slide kai tsaye duk bayan sakan 5.
+  function startAutoSlide() {
+    clearInterval(timer);
+    timer = setInterval(() => {
+      if (!document.hidden) {
+        showSlide(current + 1);
+      }
+    }, 5000);
+  }
+
+  prev.addEventListener("click", () => {
+    showSlide(current - 1);
+    startAutoSlide();
+  });
+
+  next.addEventListener("click", () => {
+    showSlide(current + 1);
+    startAutoSlide();
+  });
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      showSlide(index);
+      startAutoSlide();
+    });
+  });
+
+  root.querySelectorAll("[data-sn-speak]").forEach(button => {
+    button.addEventListener("click", () => {
+      if (!("speechSynthesis" in window)) {
+        if (status) status.textContent =
+          "Browser ɗinka ba ya goyon bayan audio.";
+        return;
+      }
+
+      stopSpeech();
+
+      const index = Number(button.getAttribute("data-sn-speak"));
+      const utterance = new SpeechSynthesisUtterance(messages[index]);
+      utterance.lang = "ha-NG";
+      utterance.rate = 0.88;
+
+      window.speechSynthesis.speak(utterance);
+    });
+  });
+
+  audioStop.addEventListener("click", stopSpeech);
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      clearInterval(timer);
+      stopSpeech();
+    } else {
+      startAutoSlide();
+    }
+  });
+
+  showSlide(0);
+  startAutoSlide();
+})();
+</script>
+<!-- SOFTINA NATURE: HEALTH AWARENESS SLIDER END -->
 <!-- STATS -->
 <section class="stats">
 
@@ -1399,7 +1891,7 @@
     </div>
 
     <p class="products-management-note">
-      Ana iya kara sabbin kayayyaki ba tare da canza wannan shafin ba; ana sarrafa catalog din a <strong>js/products-data.js</strong>.
+      
     </p>
 
   </div>
