@@ -1,15 +1,35 @@
 
 "use strict";
 
-const ADMIN_SESSION_KEY = "softinaAdminSession";
 const ADMIN_PRODUCTS_KEY = "softinaAdminProducts";
-const ORDERS_KEY = "softinaOrders";
+let supabaseOrders = [];
+let ordersLoadError = "";
+const supabaseClient = window.softinaSupabase;
 
-if (sessionStorage.getItem(ADMIN_SESSION_KEY) !== "true") {
-    window.location.replace("admin-login.html");
-} else {
+(async function verifyAdminAndStart() {
+    if (!supabaseClient) {
+        alert("Ba a samu haɗin Supabase ba. Duba js/supabase-config.js.");
+        window.location.replace("admin-login.html");
+        return;
+    }
+
+    const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
+    const user = sessionData && sessionData.session && sessionData.session.user;
+    if (sessionError || !user) {
+        window.location.replace("admin-login.html");
+        return;
+    }
+
+    const { data: roleRow, error: roleError } = await supabaseClient
+        .from("user_roles").select("role").eq("user_id", user.id).maybeSingle();
+    if (roleError || !roleRow || roleRow.role !== "admin") {
+        await supabaseClient.auth.signOut();
+        window.location.replace("admin-login.html");
+        return;
+    }
+
     initializeAdminDashboard();
-}
+})();
 
 function readArray(key) {
     try {
@@ -71,35 +91,19 @@ function formatDate(value) {
 }
 
 function normalizeStatus(value) {
-    const allowed = ["Pending", "Processing", "Completed", "Cancelled"];
-    const match = allowed.find(status =>
-        status.toLowerCase() === String(value || "").toLowerCase()
-    );
-
-    return match || "Pending";
+    const allowed = ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled"];
+    const match = allowed.find(status => status === String(value || "").toLowerCase());
+    return match || "pending";
 }
 
-function normalizeOrder(order, index) {
-    const items = Array.isArray(order.items)
-        ? order.items
-        : Array.isArray(order.cart)
-            ? order.cart
-            : [];
+function normalizePaymentStatus(value) {
+    const allowed = ["unpaid", "pending", "paid", "failed", "refunded"];
+    const match = allowed.find(status => status === String(value || "").toLowerCase());
+    return match || "unpaid";
+}
 
-    return {
-        ...order,
-        _adminId: String(order.id ?? order.orderId ?? order._id ?? `local-${index}`),
-        _adminCustomer: String(
-            order.customerName ??
-            order.customer?.name ??
-            order.name ??
-            order.customer ??
-            "Customer not recorded"
-        ),
-        _adminDate: order.date ?? order.createdAt ?? order.orderDate ?? "",
-        _adminItems: items,
-        _adminStatus: normalizeStatus(order.status)
-    };
+function getAdminOrders() {
+    return supabaseOrders;
 }
 
 function initializeAdminDashboard() {
@@ -152,8 +156,16 @@ function initializeAdminDashboard() {
     document.getElementById("currentYear").textContent =
         new Date().getFullYear();
 
-    document.getElementById("logoutButton").addEventListener("click", () => {
-        sessionStorage.removeItem(ADMIN_SESSION_KEY);
+    document.getElementById("logoutButton").addEventListener("click", async () => {
+        const button = document.getElementById("logoutButton");
+        button.disabled = true;
+        const { error } = await supabaseClient.auth.signOut();
+        if (error) {
+            console.error("Supabase sign-out failed:", error);
+            button.disabled = false;
+            alert("An kasa fita daga account. Sake gwadawa.");
+            return;
+        }
         window.location.replace("admin-login.html");
     });
 
@@ -161,10 +173,10 @@ function initializeAdminDashboard() {
     initializeOrdersManagement();
     initializeSettings();
 
-    document.getElementById("refreshDashboard").addEventListener("click", () => {
-        renderOverview();
+    document.getElementById("refreshDashboard").addEventListener("click", async () => {
         renderProducts();
-        renderOrders();
+        await loadSupabaseOrders();
+        renderOverview();
     });
 
     renderOverview();
@@ -175,11 +187,48 @@ function initializeAdminDashboard() {
    ========================= */
 
 function getAdminProducts() {
-    return readArray(ADMIN_PRODUCTS_KEY);
+    // One shared catalogue key is used by Admin Dashboard and the public shop.
+    const saved = readArray("softinaCatalogProducts");
+    const source = saved.length
+        ? saved
+        : (Array.isArray(window.SOFTINA_PRODUCTS) ? window.SOFTINA_PRODUCTS : []);
+
+    return source.map(p => ({
+        ...p,
+        id: String(p.id),
+        category: p.categoryName || p.category || "Other",
+        status: p.available === false || p.status === "Unavailable"
+            ? "Unavailable" : "Available"
+    }));
 }
 
 function saveAdminProducts(products) {
-    return writeArray(ADMIN_PRODUCTS_KEY, products);
+    // Save directly to the same catalogue read by products.html.
+    const current = readArray("softinaCatalogProducts");
+    const updated = products.map(p => {
+        const previous = current.find(item => String(item.id) === String(p.id)) || {};
+        const categoryValue = String(p.category || p.categoryName || "other");
+        return {
+            ...previous,
+            ...p,
+            id: p.id,
+            name: p.name,
+            type: p.type || previous.type || "product",
+            category: p.categoryKey || previous.category || categoryValue.toLowerCase().replace(/\s+/g, "-"),
+            categoryName: categoryValue,
+            shortDescription: p.shortDescription || previous.shortDescription || p.description || "",
+            description: p.description || "",
+            price: p.price === "" ? null : (p.price ?? null),
+            oldPrice: p.oldPrice ?? previous.oldPrice ?? null,
+            size: p.size || previous.size || "",
+            stockStatus: p.status === "Unavailable" ? "Out of Stock" : (p.stockStatus || "Available"),
+            image: p.image || previous.image || "images/products/product-1.jpg",
+            featured: Boolean(p.featured ?? previous.featured),
+            isNew: Boolean(p.isNew ?? previous.isNew),
+            available: p.status !== "Unavailable"
+        };
+    });
+    return writeArray("softinaCatalogProducts", updated);
 }
 
 function initializeProductManagement() {
@@ -407,102 +456,175 @@ function renderProducts() {
 }
 
 /* =========================
-   ORDERS MANAGEMENT
+   ORDERS MANAGEMENT - SUPABASE
    ========================= */
 
-function getAdminOrders() {
-    return readArray(ORDERS_KEY).map(normalizeOrder);
+function unwrapOrdersResponse(payload) {
+    // Supabase JSONB RPCs may return an array directly or an object wrapping it.
+    let value = payload;
+    if (typeof value === "string") {
+        try { value = JSON.parse(value); } catch (_) { /* keep original for error below */ }
+    }
+    if (Array.isArray(value)) return value;
+    if (value && typeof value === "object") {
+        const candidates = [value.orders, value.data, value.results, value.records];
+        for (const candidate of candidates) {
+            if (Array.isArray(candidate)) return candidate;
+            if (typeof candidate === "string") {
+                try {
+                    const parsed = JSON.parse(candidate);
+                    if (Array.isArray(parsed)) return parsed;
+                } catch (_) { /* try next candidate */ }
+            }
+        }
+        if (value.success === true && !candidates.some(Array.isArray)) return [];
+    }
+    throw new Error("Amsar Supabase ba ta ƙunshi jerin orders ba. Duba admin_list_softina_orders RPC.");
+}
+
+function normalizeSupabaseOrder(order) {
+    const items = order.items ?? order.order_items ?? order.orderItems ?? [];
+    return {
+        ...order,
+        id: String(order.id ?? order.order_id ?? ""),
+        order_number: order.order_number ?? order.orderNumber ?? order.order_no ?? "—",
+        customer_name: order.customer_name ?? order.customerName ?? order.full_name ?? "Customer not recorded",
+        phone: order.phone ?? order.customer_phone ?? "",
+        email: order.email ?? "",
+        delivery_address: order.delivery_address ?? order.deliveryAddress ?? order.address ?? "",
+        delivery_lga: order.delivery_lga ?? order.deliveryLga ?? order.lga ?? "",
+        delivery_state: order.delivery_state ?? order.deliveryState ?? order.state ?? "",
+        total: order.total ?? order.grand_total ?? 0,
+        created_at: order.created_at ?? order.createdAt ?? order.order_date ?? "",
+        status: normalizeStatus(order.status ?? order.order_status),
+        payment_status: normalizePaymentStatus(order.payment_status ?? order.paymentStatus),
+        items: Array.isArray(items) ? items.map(item => ({
+            ...item,
+            product_name: item.product_name ?? item.productName ?? item.name ?? "Item",
+            quantity: item.quantity ?? 1
+        })) : []
+    };
+}
+
+async function loadSupabaseOrders() {
+    const refreshButton = document.getElementById("refreshOrders");
+    const body = document.getElementById("ordersTableBody");
+    if (refreshButton) refreshButton.disabled = true;
+    if (body) body.innerHTML = '<tr><td colspan="7">Ana ɗauko orders daga Supabase...</td></tr>';
+    ordersLoadError = "";
+
+    try {
+        if (!supabaseClient) throw new Error("Ba a samu Supabase client ba. Duba js/supabase-config.js.");
+        const { data, error } = await supabaseClient.rpc("admin_list_softina_orders");
+        if (error) throw error;
+        const rows = unwrapOrdersResponse(data);
+        supabaseOrders = rows.map(normalizeSupabaseOrder);
+        if (supabaseOrders.some(order => !order.id)) {
+            throw new Error("Akwai order da bai dawo da ID ba. Duba tsarin admin_list_softina_orders.");
+        }
+    } catch (error) {
+        console.error("Could not load Supabase orders:", error);
+        ordersLoadError = error?.message || String(error) || "Unable to load orders from Supabase.";
+        supabaseOrders = [];
+    } finally {
+        if (refreshButton) refreshButton.disabled = false;
+    }
+
+    renderOrders();
+    renderOverview();
 }
 
 function initializeOrdersManagement() {
-    document.getElementById("refreshOrders").addEventListener("click", () => {
-        renderOrders();
-        renderOverview();
-    });
+    const refreshButton = document.getElementById("refreshOrders");
+    const filter = document.getElementById("orderStatusFilter");
+    const body = document.getElementById("ordersTableBody");
+    if (refreshButton) refreshButton.addEventListener("click", loadSupabaseOrders);
+    if (filter) filter.addEventListener("change", renderOrders);
 
-    document.getElementById("orderStatusFilter").addEventListener("change", renderOrders);
-
-    document.getElementById("ordersTableBody").addEventListener("change", event => {
-        const select = event.target.closest("select[data-order-id]");
-
+    if (body) body.addEventListener("change", async event => {
+        const select = event.target.closest("select[data-order-id][data-order-field]");
         if (!select) return;
 
-        const id = select.dataset.orderId;
-        const orders = readArray(ORDERS_KEY);
-
-        const index = orders.findIndex((order, i) => {
-            const normalized = normalizeOrder(order, i);
-            return normalized._adminId === id;
-        });
-
-        if (index === -1) {
-            alert("Order not found in local storage.");
-            renderOrders();
+        const order = supabaseOrders.find(item => item.id === select.dataset.orderId);
+        if (!order) {
+            alert("Ba a sami wannan order ba. Za a sake ɗauko orders.");
+            await loadSupabaseOrders();
             return;
         }
 
-        orders[index].status = select.value;
+        const field = select.dataset.orderField;
+        const previousValue = field === "status" ? order.status : order.payment_status;
+        const nextStatus = field === "status" ? select.value : order.status;
+        const nextPayment = field === "payment_status" ? select.value : order.payment_status;
+        select.disabled = true;
 
-        if (writeArray(ORDERS_KEY, orders)) {
-            renderOrders();
-            renderOverview();
+        try {
+            const { error } = await supabaseClient.rpc("admin_update_softina_order", {
+                p_order_id: order.id,
+                p_status: nextStatus,
+                p_payment_status: nextPayment
+            });
+            if (error) throw error;
+
+            // Re-read from Supabase to confirm that the change was actually saved.
+            await loadSupabaseOrders();
+            const saved = supabaseOrders.find(item => item.id === order.id);
+            const savedValue = saved && (field === "status" ? saved.status : saved.payment_status);
+            const expectedValue = field === "status" ? nextStatus : nextPayment;
+            if (!saved || savedValue !== expectedValue) {
+                throw new Error("Ba a tabbatar da sauyin a Supabase ba. Duba admin_update_softina_order.");
+            }
+        } catch (error) {
+            console.error("Order update failed:", error);
+            alert("An kasa sabunta order: " + (error?.message || "Sake gwadawa."));
+            select.disabled = false;
+            select.value = previousValue;
         }
     });
 
-    renderOrders();
+    loadSupabaseOrders();
 }
 
 function renderOrders() {
     const orders = getAdminOrders();
     const filter = document.getElementById("orderStatusFilter").value;
-
-    const filtered = filter === "all"
-        ? orders
-        : orders.filter(order => order._adminStatus === filter);
-
+    const filtered = filter === "all" ? orders : orders.filter(order => order.status === filter);
     const body = document.getElementById("ordersTableBody");
 
-    body.innerHTML = filtered.map(order => {
-        const itemNames = order._adminItems.length
-            ? order._adminItems.map(item =>
-                `${item.name || item.productName || "Item"} × ${Number(item.quantity || 1)}`
-            ).join(", ")
-            : "Items not recorded";
+    if (ordersLoadError) {
+        body.innerHTML = `<tr><td colspan="7">Could not load orders: ${escapeHTML(ordersLoadError)}</td></tr>`;
+    } else {
+        body.innerHTML = filtered.map(order => {
+            const itemNames = order.items.length
+                ? order.items.map(item => `${escapeHTML(item.product_name || "Item")} × ${Number(item.quantity || 1)}`).join("<br>")
+                : "Items not recorded";
+            const statusOptions = ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled"]
+                .map(status => `<option value="${status}" ${status === order.status ? "selected" : ""}>${status[0].toUpperCase() + status.slice(1)}</option>`).join("");
+            const paymentOptions = ["unpaid", "pending", "paid", "failed", "refunded"]
+                .map(status => `<option value="${status}" ${status === order.payment_status ? "selected" : ""}>${status[0].toUpperCase() + status.slice(1)}</option>`).join("");
+            const customerDetails = [order.customer_name, order.phone, order.email].filter(Boolean).map(escapeHTML).join("<br>");
+            const delivery = [order.delivery_address, order.delivery_lga, order.delivery_state].filter(Boolean).map(escapeHTML).join(", ");
 
-        const statusOptions = ["Pending", "Processing", "Completed", "Cancelled"]
-            .map(status => `
-                <option value="${status}"
-                    ${status === order._adminStatus ? "selected" : ""}>
-                    ${status}
-                </option>
-            `).join("");
+            return `
+                <tr>
+                    <td><strong>${escapeHTML(order.order_number)}</strong><br><small>${escapeHTML(formatDate(order.created_at))}</small></td>
+                    <td>${customerDetails || "—"}<br><small>${delivery}</small></td>
+                    <td>${itemNames}</td>
+                    <td>${formatNaira(order.total)}</td>
+                    <td><select data-order-id="${escapeHTML(order.id)}" data-order-field="status" aria-label="Update order status">${statusOptions}</select></td>
+                    <td><select data-order-id="${escapeHTML(order.id)}" data-order-field="payment_status" aria-label="Update payment status">${paymentOptions}</select></td>
+                    <td>${escapeHTML(order.delivery_address || "—")}</td>
+                </tr>
+            `;
+        }).join("");
+    }
 
-        return `
-            <tr>
-                <td>${escapeHTML(order._adminId)}</td>
-                <td>${escapeHTML(order._adminCustomer)}</td>
-                <td>${escapeHTML(itemNames)}</td>
-                <td>${escapeHTML(formatDate(order._adminDate))}</td>
-                <td>
-                    <span class="status-badge ${order._adminStatus.toLowerCase()}">
-                        ${escapeHTML(order._adminStatus)}
-                    </span>
-                </td>
-                <td>
-                    <select data-order-id="${escapeHTML(order._adminId)}"
-                        aria-label="Update order ${escapeHTML(order._adminId)} status">
-                        ${statusOptions}
-                    </select>
-                </td>
-            </tr>
-        `;
-    }).join("");
-
-    document.getElementById("ordersEmptyMessage").classList.toggle(
-        "hidden",
-        filtered.length > 0
-    );
-
+    document.getElementById("ordersEmptyMessage").classList.toggle("hidden", !!ordersLoadError || filtered.length > 0);
+    if (ordersLoadError) {
+        document.getElementById("ordersEmptyMessage").textContent = "Orders could not be loaded. Check the Supabase admin functions and refresh.";
+    } else {
+        document.getElementById("ordersEmptyMessage").textContent = "No orders found for this filter.";
+    }
     renderRecentOrders(orders);
 }
 
@@ -512,25 +634,15 @@ function renderRecentOrders(orders) {
 
     body.innerHTML = recent.map(order => `
         <tr>
-            <td>${escapeHTML(order._adminId)}</td>
-            <td>${escapeHTML(order._adminCustomer)}</td>
-            <td>${escapeHTML(formatDate(order._adminDate))}</td>
-            <td>
-                <span class="status-badge ${order._adminStatus.toLowerCase()}">
-                    ${escapeHTML(order._adminStatus)}
-                </span>
-            </td>
+            <td>${escapeHTML(order.order_number)}</td>
+            <td>${escapeHTML(order.customer_name)}</td>
+            <td>${escapeHTML(formatDate(order.created_at))}</td>
+            <td><span class="status-badge ${escapeHTML(order.status)}">${escapeHTML(order.status)}</span></td>
         </tr>
     `).join("");
 
     if (recent.length === 0) {
-        body.innerHTML = `
-            <tr>
-                <td colspan="4" class="muted">
-                    No local orders found. Orders are not connected to the dashboard yet.
-                </td>
-            </tr>
-        `;
+        body.innerHTML = `<tr><td colspan="4" class="muted">${ordersLoadError ? "Orders could not be loaded." : "No orders have been received yet."}</td></tr>`;
     }
 }
 
@@ -546,10 +658,10 @@ function renderOverview() {
     document.getElementById("statOrders").textContent = orders.length;
 
     document.getElementById("statPending").textContent =
-        orders.filter(order => order._adminStatus === "Pending").length;
+        orders.filter(order => order.status === "pending").length;
 
     document.getElementById("statCompleted").textContent =
-        orders.filter(order => order._adminStatus === "Completed").length;
+        orders.filter(order => order.status === "delivered").length;
 
     renderRecentOrders(orders);
 }

@@ -15,6 +15,8 @@
         </a>
 
         <div class="topbar-actions">
+            <a href="product-manager.html">Product Manager</a>
+            <a href="products.html" target="_blank" rel="noopener">View Shop ↗</a>
             <a href="index.html" target="_blank" rel="noopener">View Website ↗</a>
             <button id="logoutButton" class="btn btn-danger" type="button">
                 Logout
@@ -68,14 +70,7 @@
                         Refresh Data
                     </button>
                 </div>
-
-                <div class="notice">
-                    <strong>Prototype mode:</strong>
-                    This dashboard stores its product records in this browser only.
-                    It does not yet receive orders from your live website or use a
-                    shared database.
-                </div>
-
+                
                 <div class="stats-grid">
                     <article class="stat-card">
                         <span class="stat-label">Products</span>
@@ -86,7 +81,7 @@
                     <article class="stat-card">
                         <span class="stat-label">Orders</span>
                         <strong id="statOrders">0</strong>
-                        <small>Orders available locally</small>
+                        <small>Orders saved in Supabase</small>
                     </article>
 
                     <article class="stat-card">
@@ -98,7 +93,7 @@
                     <article class="stat-card">
                         <span class="stat-label">Completed Orders</span>
                         <strong id="statCompleted">0</strong>
-                        <small>Marked completed</small>
+                        <small>Orders delivered</small>
                     </article>
                 </div>
 
@@ -106,7 +101,7 @@
                     <div class="panel-heading">
                         <div>
                             <h2>Recent Orders</h2>
-                            <p class="muted">Orders saved under the local order key.</p>
+                            <p class="muted">Orders saved.</p>
                         </div>
                         <button class="btn btn-secondary" data-go="orders" type="button">
                             View All
@@ -134,17 +129,16 @@
                     <div>
                         <p class="eyebrow">SHOP MANAGEMENT</p>
                         <h1>Product Management</h1>
-                        <p class="muted">Add and manage records stored in this browser.</p>
+                        <p class="muted">Add and manage products shown in the public shop.</p>
                     </div>
                     <button class="btn btn-primary" id="showProductForm" type="button">
                         + Add Product
                     </button>
                 </div>
 
-                <div class="notice warning">
-                    Products added here are saved under a separate admin key.
-                    They will not automatically update <code>products-data.js</code>
-                    or the public shop.
+                <div class="notice">
+                    Products added, edited or deleted here are saved in the shared
+                    catalogue used by the public shop. Refresh the public shop to see changes.
                 </div>
 
                 <form id="productForm" class="panel product-form hidden">
@@ -234,28 +228,24 @@
                     <div>
                         <p class="eyebrow">SALES MANAGEMENT</p>
                         <h1>Orders Management</h1>
-                        <p class="muted">Review order records available in this browser.</p>
+                        <p class="muted">Review customer orders saved securely.</p>
                     </div>
                     <button class="btn btn-secondary" id="refreshOrders" type="button">
                         Refresh Orders
                     </button>
                 </div>
-
-                <div class="notice warning">
-                    Your current checkout flow opens WhatsApp. Unless checkout also
-                    saves an order record locally, orders sent through WhatsApp will
-                    not appear here automatically.
-                </div>
-
+                
                 <section class="panel">
                     <div class="panel-heading">
                         <h2>Order Records</h2>
                         <select id="orderStatusFilter" aria-label="Filter orders by status">
                             <option value="all">All statuses</option>
-                            <option value="Pending">Pending</option>
-                            <option value="Processing">Processing</option>
-                            <option value="Completed">Completed</option>
-                            <option value="Cancelled">Cancelled</option>
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="processing">Processing</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
                         </select>
                     </div>
 
@@ -263,19 +253,20 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Order ID</th>
-                                    <th>Customer</th>
+                                    <th>Order Number / Date</th>
+                                    <th>Customer / Delivery</th>
                                     <th>Items</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Update Status</th>
+                                    <th>Total</th>
+                                    <th>Order Status</th>
+                                    <th>Payment Status</th>
+                                    <th>Delivery Address</th>
                                 </tr>
                             </thead>
                             <tbody id="ordersTableBody"></tbody>
                         </table>
                     </div>
                     <p id="ordersEmptyMessage" class="empty-message hidden">
-                        No local orders found.
+                        No orders found for this filter.
                     </p>
                 </section>
             </section>
@@ -348,6 +339,9 @@
         </main>
     </div>
 
-    <script src="js/admin-dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/products-data.js"></script>
+    <script src="js/admin-dashboard.js?v=20261125-orders-fix2"></script>
 </body>
 </html>

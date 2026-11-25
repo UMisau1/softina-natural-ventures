@@ -972,6 +972,7 @@
       <li><a href="#about">Game da Mu</a></li>
       <li><a href="#services">Ayyuka</a></li>
       <li><a href="products.html">Products</a></li>
+      <li><a href="admin-login.html">Admin</a></li>
       <li><a href="#academy">Academy</a></li>
       <li><a href="#videos">Videos</a></li>
       <li><a href="#contact" class="nav-btn">Tuntube Mu</a></li>
@@ -1376,6 +1377,38 @@
     </article>
 
   </div>
+
+  <!-- SABON SLIDE: Ka kwafi wannan sashen duk lokacin da kake son ƙara sabo -->
+<div class="sn-slide">
+
+  <!-- Hoton da kake son nunawa -->
+  <img
+    src="PASTE-YOUR-IMAGE-URL-HERE"
+    alt="Bayanin hoton"
+    loading="lazy"
+  >
+
+  <!-- Rubutu a gefen hoton -->
+  <div class="sn-copy">
+
+    <span class="sn-tag">SOFTINA NATURE</span>
+
+    <h2>RUBUTA TAKENKA A NAN</h2>
+
+    <p>
+      Rubuta cikakken bayaninka a nan.
+      Za ka iya rubuta Hausa ko Turanci,
+      gwargwadon saƙon da kake son isarwa.
+    </p>
+
+    <p>
+      Ƙara wani bayani a nan idan kana buƙata.
+    </p>
+
+  </div>
+</div>
+<!-- ƘARSHEN SABON SLIDE -->
+
 
   <!-- MANUAL CONTROLS -->
   <div class="sn-controls" aria-label="Sarrafa slides">
@@ -2151,6 +2184,7 @@
       navAbout: "Game da Mu",
       navServices: "Ayyuka",
       navProducts: "Products",
+      navAdmin: "Admin",
       navAcademy: "Academy",
       navVideos: "Videos",
       navContact: "Tuntube Mu",
@@ -2180,6 +2214,7 @@
       navAbout: "About Us",
       navServices: "Services",
       navProducts: "Products",
+      navAdmin: "Admin",
       navAcademy: "Academy",
       navVideos: "Videos",
       navContact: "Contact Us",
@@ -2219,9 +2254,10 @@
     if (nav[1]) nav[1].textContent = t.navAbout;
     if (nav[2]) nav[2].textContent = t.navServices;
     if (nav[3]) nav[3].textContent = t.navProducts;
-    if (nav[4]) nav[4].textContent = t.navAcademy;
-    if (nav[5]) nav[5].textContent = t.navVideos;
-    if (nav[6]) nav[6].textContent = t.navContact;
+    if (nav[4]) nav[4].textContent = t.navAdmin;
+    if (nav[5]) nav[5].textContent = t.navAcademy;
+    if (nav[6]) nav[6].textContent = t.navVideos;
+    if (nav[7]) nav[7].textContent = t.navContact;
 
     setText(".hero .badge", '<i class="fa-solid fa-leaf"></i> ' + t.heroBadge, true);
     setText(".hero h1", t.heroTitle, true);
@@ -2333,6 +2369,196 @@
         </a>
 
     </div>
+
+    
+<!-- SOFTINA NATURE: PUBLIC COMMENTS -->
+<section id="sn-public-comments">
+  <div class="sn-comments-header">
+    <span class="sn-comments-label">RA'AYOYIN MAZIYARTA</span>
+    <h2>Me kake tunani?</h2>
+    <p>Ka rubuta ra'ayinka. Sauran maziyarta za su iya karantawa.</p>
+  </div>
+
+  <form id="sn-comment-form">
+    <label for="sn-comment-name">Sunanka</label>
+    <input
+      id="sn-comment-name"
+      name="name"
+      type="text"
+      maxlength="80"
+      placeholder="Rubuta sunanka"
+      required
+    >
+
+    <label for="sn-comment-message">Comment ɗinka</label>
+    <textarea
+      id="sn-comment-message"
+      name="message"
+      maxlength="2000"
+      rows="5"
+      placeholder="Rubuta ra'ayinka a nan..."
+      required
+    ></textarea>
+
+    <button type="submit" id="sn-comment-submit">
+      Aika Comment
+    </button>
+    <p id="sn-comment-status" role="status"></p>
+  </form>
+
+  <div class="sn-comments-list">
+    <h3>Ra'ayoyin da aka wallafa</h3>
+    <div id="sn-comments-results">
+      Ana loda comments...
+    </div>
+  </div>
+</section>
+
+<style>
+#sn-public-comments {
+  max-width: 850px;
+  margin: 40px auto;
+  padding: 24px;
+  color: #243329;
+  background: #fff;
+  border: 1px solid #e4e9e4;
+  border-radius: 16px;
+  font-family: Arial, sans-serif;
+}
+#sn-public-comments * { box-sizing: border-box; }
+#sn-public-comments .sn-comments-header { margin-bottom: 24px; }
+#sn-public-comments .sn-comments-label {
+  color: #27834b;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+#sn-public-comments h2 { margin: 10px 0; font-size: 28px; }
+#sn-public-comments h3 { margin-top: 28px; }
+#sn-public-comments label {
+  display: block;
+  margin: 16px 0 7px;
+  font-weight: 600;
+}
+#sn-public-comments input,
+#sn-public-comments textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ccd5cc;
+  border-radius: 9px;
+  font: inherit;
+}
+#sn-public-comments textarea { resize: vertical; }
+#sn-public-comments button {
+  margin-top: 15px;
+  padding: 13px 20px;
+  border: 0;
+  border-radius: 9px;
+  background: #267a43;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+#sn-public-comments .sn-comment-card {
+  margin-top: 14px;
+  padding: 16px;
+  background: #f5f8f5;
+  border-radius: 10px;
+  overflow-wrap: anywhere;
+}
+#sn-public-comments .sn-comment-card strong { color: #267a43; }
+#sn-public-comments .sn-comment-date {
+  display: block;
+  margin-top: 8px;
+  color: #68756b;
+  font-size: 12px;
+}
+#sn-public-comments #sn-comment-status {
+  overflow-wrap: anywhere;
+}
+</style>
+
+<script>
+(() => {
+  const API = "https://YOUR-BACKEND-DOMAIN.com/api/comments";
+
+  const form = document.getElementById("sn-comment-form");
+  const nameInput = document.getElementById("sn-comment-name");
+  const messageInput = document.getElementById("sn-comment-message");
+  const status = document.getElementById("sn-comment-status");
+  const results = document.getElementById("sn-comments-results");
+  const submit = document.getElementById("sn-comment-submit");
+
+  // Load comments visible to everyone
+  async function loadComments() {
+    results.textContent = "Ana loda comments...";
+
+    try {
+      const response = await fetch(API);
+      if (!response.ok) throw new Error("Ba a iya loda comments ba.");
+
+      const comments = await response.json();
+      results.replaceChildren();
+
+      if (!comments.length) {
+        results.textContent = "Har yanzu babu comments. Ka fara rubuta naka!";
+        return;
+      }
+
+      comments.forEach(comment => {
+        const card = document.createElement("article");
+        card.className = "sn-comment-card";
+
+        const author = document.createElement("strong");
+        author.textContent = comment.name;
+
+        const message = document.createElement("p");
+        message.textContent = comment.message;
+
+        const date = document.createElement("span");
+        date.className = "sn-comment-date";
+        date.textContent = new Date(comment.createdAt).toLocaleString();
+
+        card.append(author, message, date);
+        results.appendChild(card);
+      });
+    } catch (error) {
+      results.textContent = "An kasa loda comments. A sake gwadawa daga baya.";
+    }
+  }
+
+  form.addEventListener("submit", async event => {
+    event.preventDefault();
+    submit.disabled = true;
+    status.textContent = "Ana aika comment...";
+
+    try {
+      const response = await fetch(API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: nameInput.value.trim(),
+          message: messageInput.value.trim()
+        })
+      });
+
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "An kasa aika comment.");
+
+      form.reset();
+      status.textContent = "An aika comment ɗinka cikin nasara.";
+      await loadComments();
+    } catch (error) {
+      status.textContent = error.message || "An samu matsala. Sake gwadawa.";
+    } finally {
+      submit.disabled = false;
+    }
+  });
+
+  loadComments();
+})();
+</script>
+
 
     <p class="softina-footer-message">
         Follow us for updates, new products and more.
