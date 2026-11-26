@@ -972,6 +972,7 @@
       <li><a href="#about">Game da Mu</a></li>
       <li><a href="#services">Ayyuka</a></li>
       <li><a href="products.html">Products</a></li>
+      <li><a href="customer-account.html" id="navAccountLink">My Account</a></li>
       <li><a href="admin-login.html">Admin</a></li>
       <li><a href="#academy">Academy</a></li>
       <li><a href="#videos">Videos</a></li>
@@ -2184,6 +2185,7 @@
       navAbout: "Game da Mu",
       navServices: "Ayyuka",
       navProducts: "Products",
+      navAccount: "My Account",
       navAdmin: "Admin",
       navAcademy: "Academy",
       navVideos: "Videos",
@@ -2214,6 +2216,7 @@
       navAbout: "About Us",
       navServices: "Services",
       navProducts: "Products",
+      navAccount: "My Account",
       navAdmin: "Admin",
       navAcademy: "Academy",
       navVideos: "Videos",
@@ -2254,10 +2257,11 @@
     if (nav[1]) nav[1].textContent = t.navAbout;
     if (nav[2]) nav[2].textContent = t.navServices;
     if (nav[3]) nav[3].textContent = t.navProducts;
-    if (nav[4]) nav[4].textContent = t.navAdmin;
-    if (nav[5]) nav[5].textContent = t.navAcademy;
-    if (nav[6]) nav[6].textContent = t.navVideos;
-    if (nav[7]) nav[7].textContent = t.navContact;
+    if (nav[4]) nav[4].textContent = t.navAccount;
+    if (nav[5]) nav[5].textContent = t.navAdmin;
+    if (nav[6]) nav[6].textContent = t.navAcademy;
+    if (nav[7]) nav[7].textContent = t.navVideos;
+    if (nav[8]) nav[8].textContent = t.navContact;
 
     setText(".hero .badge", '<i class="fa-solid fa-leaf"></i> ' + t.heroBadge, true);
     setText(".hero h1", t.heroTitle, true);
