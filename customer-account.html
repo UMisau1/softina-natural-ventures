@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Softina Natural Ventures customer account and order tracking.">
+  <title>My Account | Softina Natural Ventures</title>
+  <link rel="stylesheet" href="css/customer-account.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">SOFTINA <span>NATURAL VENTURES</span></a>
+    <nav><a href="index.html">Home</a><a href="checkout.html">Checkout</a></nav>
+  </header>
+
+  <main class="page-wrap">
+    <section class="intro">
+      <p class="eyebrow">CUSTOMER ACCOUNT</p>
+      <h1>Welcome to your Softina account</h1>
+      <p>Create an account after placing an order, or sign in to track your orders.</p>
+    </section>
+
+    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
+    <section id="authPanel" class="panel auth-panel">
+      <div class="tabs" role="tablist" aria-label="Account access">
+        <button type="button" class="tab active" id="loginTab" aria-selected="true">Login</button>
+        <button type="button" class="tab" id="registerTab" aria-selected="false">Create account</button>
+      </div>
+
+      <form id="loginForm" class="account-form">
+        <h2>Customer Login</h2>
+        <label for="loginEmail">Email address</label>
+        <input id="loginEmail" name="email" type="email" autocomplete="email" required>
+        <label for="loginPassword">Password</label>
+        <input id="loginPassword" name="password" type="password" autocomplete="current-password" minlength="8" required>
+        <button class="primary-btn" type="submit">Login</button>
+        <button class="text-btn" id="forgotPassword" type="button">Forgot password?</button>
+      </form>
+
+      <form id="registerForm" class="account-form" hidden>
+        <h2>Create Customer Account</h2>
+        <p class="muted">You can still place orders without creating an account. Registration is for order tracking.</p>
+        <label for="registerName">Full name</label>
+        <input id="registerName" name="fullName" type="text" autocomplete="name" required maxlength="120">
+        <label for="registerPhone">Phone number</label>
+        <input id="registerPhone" name="phone" type="tel" autocomplete="tel" required maxlength="30">
+        <label for="registerEmail">Email address</label>
+        <input id="registerEmail" name="email" type="email" autocomplete="email" required>
+        <label for="registerPassword">Create password</label>
+        <input id="registerPassword" name="password" type="password" autocomplete="new-password" minlength="8" required>
+        <small class="muted">Use at least 8 characters. We will send a verification link to your email.</small>
+        <button class="primary-btn" type="submit">Create account</button>
+      </form>
+    </section>
+
+    <section id="profilePanel" class="panel" hidden>
+      <h2>Complete your customer profile</h2>
+      <p class="muted">Enter your name and phone number to finish setting up your account and securely link orders placed with this verified email.</p>
+      <form id="profileForm" class="account-form">
+        <label for="profileName">Full name</label>
+        <input id="profileName" type="text" maxlength="120" required>
+        <label for="profilePhone">Phone number</label>
+        <input id="profilePhone" type="tel" maxlength="30" required>
+        <button class="primary-btn" type="submit">Save profile and find my orders</button>
+      </form>
+    </section>
+
+    <section id="ordersPanel" class="panel" hidden>
+      <div class="orders-heading">
+        <div><p class="eyebrow">MY ACCOUNT</p><h2>My Orders</h2><p id="accountEmail" class="muted"></p></div>
+        <button id="refreshOrders" class="secondary-btn" type="button">Refresh orders</button>
+      </div>
+      <div id="ordersList" class="orders-list"></div>
+      <button id="logoutButton" class="text-btn logout-btn" type="button">Logout</button>
+    </section>
+  </main>
+
+  <footer><p>© <span id="year"></span> Softina Natural Ventures. All rights reserved.</p></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/customer-account.js"></script>
+</body>
+</html>
