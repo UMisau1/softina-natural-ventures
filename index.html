@@ -2374,31 +2374,44 @@
 
     </div>
 
-    
+     
+<!-- SUPABASE CONNECTION -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/checkout.js"></script>
+
+
 <!-- SOFTINA NATURE: PUBLIC COMMENTS -->
+
 <section id="sn-public-comments">
+
   <div class="sn-comments-header">
     <span class="sn-comments-label">RA'AYOYIN MAZIYARTA</span>
     <h2>Me kake tunani?</h2>
     <p>Ka rubuta ra'ayinka. Sauran maziyarta za su iya karantawa.</p>
   </div>
 
-  <form id="sn-comment-form">
+  <form id="sn-comment-form" autocomplete="on">
+
     <label for="sn-comment-name">Sunanka</label>
+
     <input
       id="sn-comment-name"
       name="name"
       type="text"
       maxlength="80"
+      minlength="2"
       placeholder="Rubuta sunanka"
       required
     >
 
     <label for="sn-comment-message">Comment ɗinka</label>
+
     <textarea
       id="sn-comment-message"
       name="message"
       maxlength="2000"
+      minlength="2"
       rows="5"
       placeholder="Rubuta ra'ayinka a nan..."
       required
@@ -2407,16 +2420,25 @@
     <button type="submit" id="sn-comment-submit">
       Aika Comment
     </button>
-    <p id="sn-comment-status" role="status"></p>
+
+    <p id="sn-comment-status" role="status" aria-live="polite"></p>
+
   </form>
 
   <div class="sn-comments-list">
+
     <h3>Ra'ayoyin da aka wallafa</h3>
+
     <div id="sn-comments-results">
       Ana loda comments...
     </div>
+
   </div>
+
 </section>
+
+<!-- SOFTINA PUBLIC COMMENTS JAVASCRIPT -->
+
 
 <style>
 #sn-public-comments {
@@ -2483,33 +2505,63 @@
 </style>
 
 <script>
-(() => {
-  const API = "https://YOUR-BACKEND-DOMAIN.com/api/comments";
+document.addEventListener("DOMContentLoaded", function () {
+
+  "use strict";
+
+  const supabase = window.softinaSupabase;
 
   const form = document.getElementById("sn-comment-form");
   const nameInput = document.getElementById("sn-comment-name");
   const messageInput = document.getElementById("sn-comment-message");
+  const submitButton = document.getElementById("sn-comment-submit");
   const status = document.getElementById("sn-comment-status");
   const results = document.getElementById("sn-comments-results");
-  const submit = document.getElementById("sn-comment-submit");
 
-  // Load comments visible to everyone
+  if (!form || !nameInput || !messageInput || !submitButton || !status || !results) {
+    console.error("Softina Comments: An kasa samun HTML elements.");
+    return;
+  }
+
+  // Duba haɗin Supabase
+  if (!supabase) {
+    status.textContent = "Ba a samu haɗin Supabase ba.";
+    results.textContent = "A duba js/supabase-config.js.";
+    return;
+  }
+
+  // Nuna saƙo
+  function showStatus(message, type) {
+    status.textContent = message;
+    status.className = type || "";
+  }
+
+  // Loda comments daga Supabase
   async function loadComments() {
+
     results.textContent = "Ana loda comments...";
 
     try {
-      const response = await fetch(API);
-      if (!response.ok) throw new Error("Ba a iya loda comments ba.");
 
-      const comments = await response.json();
+      const { data, error } = await supabase
+        .from("public_comments")
+        .select("id, name, message, created_at")
+        .eq("is_public", true)
+        .order("created_at", { ascending: false })
+        .limit(100);
+
+      if (error) throw error;
+
       results.replaceChildren();
 
-      if (!comments.length) {
-        results.textContent = "Har yanzu babu comments. Ka fara rubuta naka!";
+      if (!data || data.length === 0) {
+        results.textContent =
+          "Har yanzu babu comments. Ka fara rubuta naka!";
         return;
       }
 
-      comments.forEach(comment => {
+      data.forEach(function (comment) {
+
         const card = document.createElement("article");
         card.className = "sn-comment-card";
 
@@ -2521,47 +2573,123 @@
 
         const date = document.createElement("span");
         date.className = "sn-comment-date";
-        date.textContent = new Date(comment.createdAt).toLocaleString();
 
-        card.append(author, message, date);
+        date.textContent = comment.created_at
+          ? new Date(comment.created_at).toLocaleString()
+          : "";
+
+        card.appendChild(author);
+        card.appendChild(message);
+        card.appendChild(date);
+
         results.appendChild(card);
+
       });
+
     } catch (error) {
-      results.textContent = "An kasa loda comments. A sake gwadawa daga baya.";
+
+      console.error("Softina Comments Loading Error:", error);
+
+      results.textContent =
+        "An kasa loda comments. A sake gwadawa daga baya.";
+
     }
+
   }
 
-  form.addEventListener("submit", async event => {
+  // Aika comment
+  form.addEventListener("submit", async function (event) {
+
     event.preventDefault();
-    submit.disabled = true;
-    status.textContent = "Ana aika comment...";
+    event.stopPropagation();
+
+    const name = nameInput.value.trim();
+    const message = messageInput.value.trim();
+
+    if (name.length < 2 || name.length > 80) {
+      showStatus("Suna ya kasance tsakanin haruffa 2 zuwa 80.", "error");
+      nameInput.focus();
+      return;
+    }
+
+    if (message.length < 2 || message.length > 2000) {
+      showStatus("Comment ya kasance tsakanin haruffa 2 zuwa 2000.", "error");
+      messageInput.focus();
+      return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Ana aikawa...";
+
+    showStatus("Ana aika comment ɗinka zuwa Supabase...", "loading");
 
     try {
-      const response = await fetch(API, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: nameInput.value.trim(),
-          message: messageInput.value.trim()
-        })
-      });
 
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.error || "An kasa aika comment.");
+      const { data, error } = await supabase
+        .from("public_comments")
+        .insert([
+          {
+            name: name,
+            message: message
+          }
+        ])
+        .select();
+
+      if (error) {
+        throw error;
+      }
 
       form.reset();
-      status.textContent = "An aika comment ɗinka cikin nasara.";
+
+      showStatus(
+        "An aika comment ɗinka cikin nasara!",
+        "success"
+      );
+
       await loadComments();
+
     } catch (error) {
-      status.textContent = error.message || "An samu matsala. Sake gwadawa.";
+
+      console.error("Softina Comment Submission Error:", error);
+
+      showStatus(
+        error.message || "An kasa aika comment. Sake gwadawa.",
+        "error"
+      );
+
     } finally {
-      submit.disabled = false;
+
+      submitButton.disabled = false;
+      submitButton.textContent = "Aika Comment";
+
     }
+
   });
 
+  // Loda comments lokacin buɗe shafin
   loadComments();
-})();
+
+  // Sabunta comments idan wani ya aika sabon comment
+  supabase
+    .channel("softina-public-comments-live")
+    .on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "public_comments",
+        filter: "is_public=eq.true"
+      },
+      function () {
+        loadComments();
+      }
+    )
+    .subscribe();
+
+});
 </script>
+
+<!-- END SOFTINA PUBLIC COMMENTS -->
 
 
     <p class="softina-footer-message">
