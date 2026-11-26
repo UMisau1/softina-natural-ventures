@@ -118,6 +118,7 @@ function buildWhatsAppMessage(customer, deliveryMethod, notes, order) {
         "CUSTOMER INFORMATION",
         `Name: ${customer.full_name}`,
         `Phone: ${customer.phone}`,
+        customer.email ? `Email: ${customer.email}` : "",
         `State: ${customer.state}`,
         `LGA: ${customer.lga}`,
         `Delivery Address: ${customer.address}`,
@@ -150,7 +151,7 @@ async function submitCheckout(event) {
         state: getFieldValue("state"),
         lga: getFieldValue("lga"),
         address: getFieldValue("address"),
-        email: null
+        email: getFieldValue("email") || null
     };
 
     const deliveryMethod = getFieldValue("deliveryMethod");
